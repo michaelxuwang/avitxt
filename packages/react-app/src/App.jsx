@@ -10,6 +10,7 @@ import {
 } from "eth-hooks";
 import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
 import React, { useCallback, useEffect, useState } from "react";
+import { useMoralis } from "react-moralis";
 import { Link, Route, Switch, useLocation } from "react-router-dom";
 import "./App.css";
 import {
