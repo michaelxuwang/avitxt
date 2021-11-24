@@ -11,7 +11,7 @@ import {
 import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
 import React, { useCallback, useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
-import { Link, Route, Switch, useLocation } from "react-router-dom";
+import { Link, Route, Switch, useLocation, useParams } from "react-router-dom";
 import "./App.css";
 import {
   Account,
@@ -24,12 +24,12 @@ import {
   NetworkDisplay,
   FaucetHint,
 } from "./components";
-import { NETWORKS, ALCHEMY_KEY } from "./constants";
+import { NETWORKS, ALCHEMY_KEY, DEFAULT_NETWORK } from "./constants";
 import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
 import { Transactor, Web3ModalSetup } from "./helpers";
-import { Home, ExampleUI, Hints, Subgraph } from "./views";
+import { Home, ExampleUI, CreateCompetition, ViewCompetition, ListCompetitions, Hints, Subgraph } from "./views";
 import { useStaticJsonRPC } from "./hooks";
 
 const { ethers } = require("ethers");
@@ -53,7 +53,7 @@ const { ethers } = require("ethers");
 */
 
 /// 📡 What chain are your contracts deployed to?
-const targetNetwork = NETWORKS.localhost; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+const targetNetwork = NETWORKS[DEFAULT_NETWORK]; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
 const DEBUG = true;
@@ -70,7 +70,7 @@ const web3Modal = Web3ModalSetup();
 // 🛰 providers
 const providers = [
   "https://eth-mainnet.gateway.pokt.network/v1/lb/611156b4a585a20035148406",
-  `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_KEY}`,
+  // `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_KEY}`,
   "https://rpc.scaffoldeth.io:48544",
 ];
 
@@ -78,6 +78,7 @@ function App(props) {
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
   const location = useLocation();
+  const [compAddress, setCompAddress] = useState();
 
   // load all your providers
   const localProvider = useStaticJsonRPC([
@@ -132,7 +133,11 @@ function App(props) {
 
   // const contractConfig = useContractConfig();
 
-  const contractConfig = { deployedContracts: deployedContracts || {}, externalContracts: externalContracts || {} };
+  const contractConfig = {
+    deployedContracts: deployedContracts || {},
+    externalContracts: externalContracts || {},
+    customAddresses: {}
+  };
 
   // Load in your local 📝 contract and read a value from it:
   const readContracts = useContractLoader(localProvider, contractConfig);
@@ -230,6 +235,13 @@ function App(props) {
 
   const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf("local") !== -1;
 
+  useEffect(() => {
+    if (compAddress) {
+      contractConfig.customAddresses['Competition'] = compAddress;
+      console.log('+++++++++setting compAddress', contractConfig, compAddress);
+    }
+  });
+
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
@@ -244,8 +256,17 @@ function App(props) {
         <Menu.Item key="/">
           <Link to="/">App Home</Link>
         </Menu.Item>
+        <Menu.Item key="/list-competitions">
+          <Link to="/list-competitions">List Competitions</Link>
+        </Menu.Item>
+        <Menu.Item key="/create-competition">
+          <Link to="/create-competition">Create Competition</Link>
+        </Menu.Item>
         <Menu.Item key="/debug">
-          <Link to="/debug">Debug Contracts</Link>
+          <Link to="/debug">Debug Factory</Link>
+        </Menu.Item>
+        <Menu.Item key="/debug-competition">
+          <Link to="/debug-competition">Debug Competition</Link>
         </Menu.Item>
         <Menu.Item key="/hints">
           <Link to="/hints">Hints</Link>
@@ -266,6 +287,46 @@ function App(props) {
           {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
           <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />
         </Route>
+        <Route path="/list-competitions">
+          <ListCompetitions
+            address={address}
+            userSigner={userSigner}
+            mainnetProvider={mainnetProvider}
+            localProvider={localProvider}
+            contractConfig={contractConfig}
+            setCompAddress={setCompAddress}
+          />
+        </Route>
+        <Route path="/create-competition">
+          <CreateCompetition
+            address={address}
+            userSigner={userSigner}
+            mainnetProvider={mainnetProvider}
+            localProvider={localProvider}
+            tx={tx}
+            writeContracts={writeContracts}
+            readContracts={readContracts}
+            setCompAddress={setCompAddress}
+          />
+        </Route>
+        <Route path="/view-competition/:compAddress">
+          <ViewCompetition
+            address={address}
+            userSigner={userSigner}
+            mainnetProvider={mainnetProvider}
+            localProvider={localProvider}
+            contractConfig={contractConfig}
+          />
+          {/* <Contract
+            name="Competition"
+            price={price}
+            signer={userSigner}
+            provider={localProvider}
+            address={address}
+            blockExplorer={blockExplorer}
+            contractConfig={contractConfig}
+          /> */}
+        </Route>
         <Route exact path="/debug">
           {/*
                 🎛 this scaffolding is full of commonly used components
@@ -274,7 +335,24 @@ function App(props) {
             */}
 
           <Contract
-            name="YourContract"
+            name="CompetitionFactory"
+            price={price}
+            signer={userSigner}
+            provider={localProvider}
+            address={address}
+            blockExplorer={blockExplorer}
+            contractConfig={contractConfig}
+          />
+        </Route>
+        <Route exact path="/debug-competition">
+          {/*
+                🎛 this scaffolding is full of commonly used components
+                this <Contract/> component will automatically parse your ABI
+                and give you a form to interact with it locally
+            */}
+
+          <Contract
+            name="Competition"
             price={price}
             signer={userSigner}
             provider={localProvider}

@@ -9,6 +9,8 @@ export const BLOCKNATIVE_DAPPID = "0b58206a-f3c0-4701-a62f-73c7243e8c77";
 
 export const ALCHEMY_KEY = "oKxs-03sij-U_N0iOlrSsZFr29-IqbuF";
 
+export const DEFAULT_NETWORK = "localhost";
+
 export const NETWORKS = {
   localhost: {
     name: "localhost",
@@ -16,6 +18,8 @@ export const NETWORKS = {
     chainId: 31337,
     blockExplorer: "",
     rpcUrl: "http://" + (global.window ? window.location.hostname : "localhost") + ":8545",
+    moralisServerUrl: "https://iuyq0mily9ls.usemoralis.com:2053/server",
+    moralisAppId: "Laa0VUiCUryJShyEDjPKihhhIFCPyt6CDQwaWDir"
   },
   mainnet: {
     name: "mainnet",

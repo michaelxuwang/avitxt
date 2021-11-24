@@ -6,10 +6,9 @@ import ReactDOM from "react-dom";
 import { MoralisProvider } from "react-moralis";
 import App from "./App";
 import "./index.css";
+import { DEFAULT_NETWORK, NETWORKS } from "./constants";
 
-// Kovan Server - Moralis
-const APP_ID = "vuSHldvhCW1bxPzFVZBMsk205D3atbHQSAuAQ8pH";
-const SERVER_URL = "https://ajhkv0lxp8el.usemoralis.com:2053/server";
+const targetNetwork = NETWORKS[DEFAULT_NETWORK];
 
 const themes = {
   dark: `${process.env.PUBLIC_URL}/dark-theme.css`,
@@ -26,7 +25,7 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <MoralisProvider appId={APP_ID} serverUrl={SERVER_URL}>
+  <MoralisProvider appId={targetNetwork.moralisAppId} serverUrl={targetNetwork.moralisServerUrl}>
     <ApolloProvider client={client}>
       <ThemeSwitcherProvider themeMap={themes} defaultTheme={prevTheme || "light"}>
         <BrowserRouter>
