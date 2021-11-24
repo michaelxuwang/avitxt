@@ -101,6 +101,9 @@ function App(props) {
 
   /* 🔥 This hook will get the price of Gas from ⛽️ EtherGasStation */
   const gasPrice = useGasPrice(targetNetwork, "fast");
+
+  const activeWeb3Provider = new ethers.providers.Web3Provider(web3.currentProvider);
+  console.log('##### injectedProvider', injectedProvider, web3.currentProvider, localProvider, activeWeb3Provider);
   // Use your injected provider from 🦊 Metamask or if you don't have it then instantly generate a 🔥 burner wallet.
   const userProviderAndSigner = useUserProviderAndSigner(injectedProvider, localProvider);
   const userSigner = userProviderAndSigner.signer;

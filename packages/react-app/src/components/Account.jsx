@@ -59,7 +59,7 @@ export default function Account({
   useEffect(() => {
     console.log('+++++++++enabling web3', user, web3);
     enableWeb3();
-  }, []);
+  }, [user]);
 
   const { currentTheme } = useThemeSwitcher();
 

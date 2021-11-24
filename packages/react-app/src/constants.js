@@ -9,7 +9,7 @@ export const BLOCKNATIVE_DAPPID = "0b58206a-f3c0-4701-a62f-73c7243e8c77";
 
 export const ALCHEMY_KEY = "oKxs-03sij-U_N0iOlrSsZFr29-IqbuF";
 
-export const DEFAULT_NETWORK = "kovan";
+export const DEFAULT_NETWORK = "localhost";
 
 export const NETWORKS = {
   localhost: {
