@@ -1,7 +1,7 @@
 import { SyncOutlined } from "@ant-design/icons";
 import { utils } from "ethers";
 import { Button, Card, DatePicker, Divider, Input, Progress, Slider, Spin, Switch } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Address, Balance, Events } from "../components";
 import { useParams } from "react-router-dom";
 import {
@@ -28,12 +28,12 @@ export default function ViewCompetition({
 
   // const readContracts = useContractLoader(localProvider, contractConfig);
   const name = useContractReader(contracts, "Competition", "name");
-  const roles = useContractReader(contracts, "Competition", "getMyRoles");
-  // const roles = useContractReader(contracts, {
-  //   contractName: "Competition",
-  //   functionName: "getMyRoles",
-  //   functionArgs: []
-  // });
+
+  const [roles, setRoles] = useState();
+  useEffect(async () => {
+    setRoles(await contract?.getRoles(address));
+  }, [contract, address]);
+
   console.log('!!!contract', localProvider, contract, name, roles);
 
 

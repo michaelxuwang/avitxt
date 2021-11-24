@@ -9,7 +9,7 @@ export const BLOCKNATIVE_DAPPID = "0b58206a-f3c0-4701-a62f-73c7243e8c77";
 
 export const ALCHEMY_KEY = "oKxs-03sij-U_N0iOlrSsZFr29-IqbuF";
 
-export const DEFAULT_NETWORK = "localhost";
+export const DEFAULT_NETWORK = "kovan";
 
 export const NETWORKS = {
   localhost: {
@@ -18,8 +18,8 @@ export const NETWORKS = {
     chainId: 31337,
     blockExplorer: "",
     rpcUrl: "http://" + (global.window ? window.location.hostname : "localhost") + ":8545",
-    moralisServerUrl: "https://iuyq0mily9ls.usemoralis.com:2053/server",
-    moralisAppId: "Laa0VUiCUryJShyEDjPKihhhIFCPyt6CDQwaWDir"
+    moralisServerUrl: "https://rfdhyqlivk4x.usemoralis.com:2053/server",
+    moralisAppId: "tkuc3FgHnBgyA28ty1VzZwo7ixIkTzzCVLbZeRAe"
   },
   mainnet: {
     name: "mainnet",
@@ -32,7 +32,10 @@ export const NETWORKS = {
     name: "kovan",
     color: "#7003DD",
     chainId: 42,
-    rpcUrl: `https://kovan.infura.io/v3/${INFURA_ID}`,
+    // rpcUrl: `https://kovan.infura.io/v3/${INFURA_ID}`,
+    rpcUrl: "https://speedy-nodes-nyc.moralis.io/83fe2dc49820be3f0d48133d/eth/kovan",
+    moralisServerUrl: "https://qurauvzjjmrz.usemoralis.com:2053/server",
+    moralisAppId: "yY2GiYSr8ksX7BraE3gYYU12E4LeCnYQk9Ed0zG0",
     blockExplorer: "https://kovan.etherscan.io/",
     faucet: "https://gitter.im/kovan-testnet/faucet", // https://faucet.kovan.network/
   },

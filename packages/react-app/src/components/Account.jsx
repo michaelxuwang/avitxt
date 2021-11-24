@@ -57,7 +57,7 @@ export default function Account({
   const { web3, enableWeb3, isWeb3Enabled, isWeb3EnableLoading, web3EnableError } = useMoralis()
 
   useEffect(() => {
-    console.log('+++++++++enabling web3');
+    console.log('+++++++++enabling web3', user, web3);
     enableWeb3();
   }, []);
 

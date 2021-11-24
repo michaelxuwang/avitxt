@@ -56,7 +56,7 @@ const { ethers } = require("ethers");
 const targetNetwork = NETWORKS[DEFAULT_NETWORK]; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
-const DEBUG = true;
+const DEBUG = false;
 const NETWORKCHECK = true;
 
 // 🛰 providers

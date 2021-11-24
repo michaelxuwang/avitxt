@@ -126,15 +126,14 @@ contract Competition is Ownable {
     judges.add(judge);
   }
 
-  function getMyRoles() public view returns(bool isOwner, bool isJudge, bool isApplicant, address sender) {
+  function getMyRoles() public view returns(bool isOwner, bool isJudge, bool isApplicant) {
     return getRoles(msg.sender);
   }
 
-  function getRoles(address caller) public view returns(bool isOwner, bool isJudge, bool isApplicant, address sender) {
+  function getRoles(address caller) public view returns(bool isOwner, bool isJudge, bool isApplicant) {
     isOwner = (owner() == caller);
     isJudge = judges.contains(caller);
     isApplicant = (submissions[caller].submissionDate != 0);
-    sender = caller;
   }
 
   function addSubmission(string memory _info) public {
