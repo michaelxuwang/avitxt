@@ -52,14 +52,14 @@ export default function Account({
   logoutOfWeb3Modal,
   blockExplorer,
 }) {
-  const { authenticate, isAuthenticated, user, logout } = useMoralis();
+  // const { authenticate, isAuthenticated, user, logout } = useMoralis();
 
-  const { web3, enableWeb3, isWeb3Enabled, isWeb3EnableLoading, web3EnableError } = useMoralis()
+  // const { web3, enableWeb3, isWeb3Enabled, isWeb3EnableLoading, web3EnableError } = useMoralis()
 
-  useEffect(() => {
-    console.log('+++++++++enabling web3', user, web3);
-    enableWeb3();
-  }, [user]);
+  // useEffect(() => {
+  //   console.log('+++++++++enabling web3', user, web3);
+  //   enableWeb3();
+  // }, [user]);
 
   const { currentTheme } = useThemeSwitcher();
 
@@ -86,13 +86,13 @@ export default function Account({
         </span>
       )}
       {web3Modal &&
-        (isAuthenticated ? (
+        (web3Modal?.cachedProvider ? (
           <Button
             key="logoutbutton"
             style={{ verticalAlign: "top", marginLeft: 8, marginTop: 4 }}
             shape="round"
             size="large"
-            onClick={logout}
+            onClick={logoutOfWeb3Modal}
           >
             logout
           </Button>
@@ -103,7 +103,7 @@ export default function Account({
             shape="round"
             size="large"
             /* type={minimized ? "default" : "primary"}     too many people just defaulting to MM and having a bad time */
-            onClick={authenticate}
+            onClick={loadWeb3Modal}
           >
             connect
           </Button>

@@ -1,0 +1,1560 @@
+{
+  "42": {
+    "kovan": {
+      "name": "kovan",
+      "chainId": "42",
+      "contracts": {
+        "Competition": {
+          "address": "0x56C9026094fa0597502ACDD0A36eeE274B8CFA0f",
+          "abi": [
+            {
+              "inputs": [],
+              "stateMutability": "nonpayable",
+              "type": "constructor"
+            },
+            {
+              "anonymous": false,
+              "inputs": [],
+              "name": "InfoChanged",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": true,
+                  "internalType": "address",
+                  "name": "previousOwner",
+                  "type": "address"
+                },
+                {
+                  "indexed": true,
+                  "internalType": "address",
+                  "name": "newOwner",
+                  "type": "address"
+                }
+              ],
+              "name": "OwnershipTransferred",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": false,
+                  "internalType": "enum Competition.State",
+                  "name": "state",
+                  "type": "uint8"
+                }
+              ],
+              "name": "StateChanged",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": false,
+                  "internalType": "address",
+                  "name": "submissionId",
+                  "type": "address"
+                }
+              ],
+              "name": "SubmissionAdded",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": false,
+                  "internalType": "address",
+                  "name": "submissionId",
+                  "type": "address"
+                },
+                {
+                  "indexed": false,
+                  "internalType": "address",
+                  "name": "judge",
+                  "type": "address"
+                }
+              ],
+              "name": "SubmissionScored",
+              "type": "event"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "judge",
+                  "type": "address"
+                }
+              ],
+              "name": "addJudge",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "_info",
+                  "type": "string"
+                }
+              ],
+              "name": "addSubmission",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "name": "applicants",
+              "outputs": [
+                {
+                  "internalType": "address",
+                  "name": "",
+                  "type": "address"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "category",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "closeDate",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "detailsFile",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "name": "externalDataSources",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "finalizeDate",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "getApplicants",
+              "outputs": [
+                {
+                  "internalType": "address[]",
+                  "name": "",
+                  "type": "address[]"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "getMyRoles",
+              "outputs": [
+                {
+                  "internalType": "bool",
+                  "name": "isOwner",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isJudge",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isApplicant",
+                  "type": "bool"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "caller",
+                  "type": "address"
+                }
+              ],
+              "name": "getRoles",
+              "outputs": [
+                {
+                  "internalType": "bool",
+                  "name": "isOwner",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isJudge",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isApplicant",
+                  "type": "bool"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "_applicant",
+                  "type": "address"
+                }
+              ],
+              "name": "getSubmissionJudges",
+              "outputs": [
+                {
+                  "internalType": "address[]",
+                  "name": "",
+                  "type": "address[]"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "_applicant",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "judge",
+                  "type": "address"
+                }
+              ],
+              "name": "getSubmissionScoreSheetByJudge",
+              "outputs": [
+                {
+                  "components": [
+                    {
+                      "internalType": "uint256[]",
+                      "name": "scores",
+                      "type": "uint256[]"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "judge",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "scoreDate",
+                      "type": "uint256"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "weightedScore",
+                      "type": "uint256"
+                    }
+                  ],
+                  "internalType": "struct Competition.ScoreSheet",
+                  "name": "",
+                  "type": "tuple"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "_applicant",
+                  "type": "address"
+                }
+              ],
+              "name": "getSubmissionScoreSheets",
+              "outputs": [
+                {
+                  "components": [
+                    {
+                      "internalType": "uint256[]",
+                      "name": "scores",
+                      "type": "uint256[]"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "judge",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "scoreDate",
+                      "type": "uint256"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "weightedScore",
+                      "type": "uint256"
+                    }
+                  ],
+                  "internalType": "struct Competition.ScoreSheet[]",
+                  "name": "",
+                  "type": "tuple[]"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "info",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "name",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "openDate",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "owner",
+              "outputs": [
+                {
+                  "internalType": "address",
+                  "name": "",
+                  "type": "address"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "renounceOwnership",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "requirementTotalWeight",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "name": "requirementWeights",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "_applicant",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256[]",
+                  "name": "_scores",
+                  "type": "uint256[]"
+                }
+              ],
+              "name": "scoreSubmission",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "_name",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_info",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_category",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_detailsFile",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "_openDate",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "_closeDate",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "_finalizeDate",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "_submissionFee",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_submissionDetailsFile",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string[]",
+                  "name": "_externalDataSources",
+                  "type": "string[]"
+                },
+                {
+                  "internalType": "uint256[]",
+                  "name": "_weights",
+                  "type": "uint256[]"
+                }
+              ],
+              "name": "setAllInfo",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "_name",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_info",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_category",
+                  "type": "string"
+                }
+              ],
+              "name": "setInfo",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256[]",
+                  "name": "_weights",
+                  "type": "uint256[]"
+                }
+              ],
+              "name": "setRequirementWeights",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "enum Competition.State",
+                  "name": "_state",
+                  "type": "uint8"
+                }
+              ],
+              "name": "setState",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "state",
+              "outputs": [
+                {
+                  "internalType": "enum Competition.State",
+                  "name": "",
+                  "type": "uint8"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "submissionDetailsFile",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "submissionFee",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "",
+                  "type": "address"
+                }
+              ],
+              "name": "submissions",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "info",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "submissionDate",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "weightedScore",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "newOwner",
+                  "type": "address"
+                }
+              ],
+              "name": "transferOwnership",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            }
+          ]
+        },
+        "CompetitionFactory": {
+          "address": "0x0Da8Cb53780850D9d7Dfe244eFC2ef0938532C5A",
+          "abi": [
+            {
+              "inputs": [],
+              "stateMutability": "nonpayable",
+              "type": "constructor"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": false,
+                  "internalType": "address",
+                  "name": "competitionAddress",
+                  "type": "address"
+                },
+                {
+                  "indexed": false,
+                  "internalType": "string",
+                  "name": "name",
+                  "type": "string"
+                },
+                {
+                  "indexed": false,
+                  "internalType": "string",
+                  "name": "info",
+                  "type": "string"
+                },
+                {
+                  "indexed": false,
+                  "internalType": "string",
+                  "name": "category",
+                  "type": "string"
+                }
+              ],
+              "name": "CompetitionCreated",
+              "type": "event"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "name": "competitions",
+              "outputs": [
+                {
+                  "internalType": "contract Competition",
+                  "name": "",
+                  "type": "address"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "_name",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_info",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_category",
+                  "type": "string"
+                }
+              ],
+              "name": "createCompetition",
+              "outputs": [
+                {
+                  "internalType": "address",
+                  "name": "",
+                  "type": "address"
+                }
+              ],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "getCompetitions",
+              "outputs": [
+                {
+                  "internalType": "contract Competition[]",
+                  "name": "",
+                  "type": "address[]"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "31337": {
+    "localhost": {
+      "name": "localhost",
+      "chainId": "31337",
+      "contracts": {
+        "CompetitionFactory": {
+          "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          "abi": [
+            {
+              "inputs": [],
+              "stateMutability": "nonpayable",
+              "type": "constructor"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": false,
+                  "internalType": "address",
+                  "name": "competitionAddress",
+                  "type": "address"
+                },
+                {
+                  "indexed": false,
+                  "internalType": "string",
+                  "name": "name",
+                  "type": "string"
+                },
+                {
+                  "indexed": false,
+                  "internalType": "string",
+                  "name": "info",
+                  "type": "string"
+                },
+                {
+                  "indexed": false,
+                  "internalType": "string",
+                  "name": "category",
+                  "type": "string"
+                }
+              ],
+              "name": "CompetitionCreated",
+              "type": "event"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "name": "competitions",
+              "outputs": [
+                {
+                  "internalType": "contract Competition",
+                  "name": "",
+                  "type": "address"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "_name",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_info",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_category",
+                  "type": "string"
+                }
+              ],
+              "name": "createCompetition",
+              "outputs": [
+                {
+                  "internalType": "address",
+                  "name": "",
+                  "type": "address"
+                }
+              ],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "getCompetitions",
+              "outputs": [
+                {
+                  "internalType": "contract Competition[]",
+                  "name": "",
+                  "type": "address[]"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            }
+          ]
+        },
+        "Competition": {
+          "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+          "abi": [
+            {
+              "inputs": [],
+              "stateMutability": "nonpayable",
+              "type": "constructor"
+            },
+            {
+              "anonymous": false,
+              "inputs": [],
+              "name": "InfoChanged",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": true,
+                  "internalType": "address",
+                  "name": "previousOwner",
+                  "type": "address"
+                },
+                {
+                  "indexed": true,
+                  "internalType": "address",
+                  "name": "newOwner",
+                  "type": "address"
+                }
+              ],
+              "name": "OwnershipTransferred",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": false,
+                  "internalType": "enum Competition.State",
+                  "name": "state",
+                  "type": "uint8"
+                }
+              ],
+              "name": "StateChanged",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": false,
+                  "internalType": "address",
+                  "name": "submissionId",
+                  "type": "address"
+                }
+              ],
+              "name": "SubmissionAdded",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": false,
+                  "internalType": "address",
+                  "name": "submissionId",
+                  "type": "address"
+                },
+                {
+                  "indexed": false,
+                  "internalType": "address",
+                  "name": "judge",
+                  "type": "address"
+                }
+              ],
+              "name": "SubmissionScored",
+              "type": "event"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "judge",
+                  "type": "address"
+                }
+              ],
+              "name": "addJudge",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "_info",
+                  "type": "string"
+                }
+              ],
+              "name": "addSubmission",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "name": "applicants",
+              "outputs": [
+                {
+                  "internalType": "address",
+                  "name": "",
+                  "type": "address"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "category",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "closeDate",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "detailsFile",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "name": "externalDataSources",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "finalizeDate",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "getApplicants",
+              "outputs": [
+                {
+                  "internalType": "address[]",
+                  "name": "",
+                  "type": "address[]"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "getMyRoles",
+              "outputs": [
+                {
+                  "internalType": "bool",
+                  "name": "isOwner",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isJudge",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isApplicant",
+                  "type": "bool"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "caller",
+                  "type": "address"
+                }
+              ],
+              "name": "getRoles",
+              "outputs": [
+                {
+                  "internalType": "bool",
+                  "name": "isOwner",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isJudge",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isApplicant",
+                  "type": "bool"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "_applicant",
+                  "type": "address"
+                }
+              ],
+              "name": "getSubmissionJudges",
+              "outputs": [
+                {
+                  "internalType": "address[]",
+                  "name": "",
+                  "type": "address[]"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "_applicant",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "judge",
+                  "type": "address"
+                }
+              ],
+              "name": "getSubmissionScoreSheetByJudge",
+              "outputs": [
+                {
+                  "components": [
+                    {
+                      "internalType": "uint256[]",
+                      "name": "scores",
+                      "type": "uint256[]"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "judge",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "scoreDate",
+                      "type": "uint256"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "weightedScore",
+                      "type": "uint256"
+                    }
+                  ],
+                  "internalType": "struct Competition.ScoreSheet",
+                  "name": "",
+                  "type": "tuple"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "_applicant",
+                  "type": "address"
+                }
+              ],
+              "name": "getSubmissionScoreSheets",
+              "outputs": [
+                {
+                  "components": [
+                    {
+                      "internalType": "uint256[]",
+                      "name": "scores",
+                      "type": "uint256[]"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "judge",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "scoreDate",
+                      "type": "uint256"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "weightedScore",
+                      "type": "uint256"
+                    }
+                  ],
+                  "internalType": "struct Competition.ScoreSheet[]",
+                  "name": "",
+                  "type": "tuple[]"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "info",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "name",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "openDate",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "owner",
+              "outputs": [
+                {
+                  "internalType": "address",
+                  "name": "",
+                  "type": "address"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "renounceOwnership",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "requirementTotalWeight",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "name": "requirementWeights",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "_applicant",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256[]",
+                  "name": "_scores",
+                  "type": "uint256[]"
+                }
+              ],
+              "name": "scoreSubmission",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "_name",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_info",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_category",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_detailsFile",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "_openDate",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "_closeDate",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "_finalizeDate",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "_submissionFee",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_submissionDetailsFile",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string[]",
+                  "name": "_externalDataSources",
+                  "type": "string[]"
+                },
+                {
+                  "internalType": "uint256[]",
+                  "name": "_weights",
+                  "type": "uint256[]"
+                }
+              ],
+              "name": "setAllInfo",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "_name",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_info",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_category",
+                  "type": "string"
+                }
+              ],
+              "name": "setInfo",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256[]",
+                  "name": "_weights",
+                  "type": "uint256[]"
+                }
+              ],
+              "name": "setRequirementWeights",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "enum Competition.State",
+                  "name": "_state",
+                  "type": "uint8"
+                }
+              ],
+              "name": "setState",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "state",
+              "outputs": [
+                {
+                  "internalType": "enum Competition.State",
+                  "name": "",
+                  "type": "uint8"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "submissionDetailsFile",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "submissionFee",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "",
+                  "type": "address"
+                }
+              ],
+              "name": "submissions",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "info",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "submissionDate",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "weightedScore",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "newOwner",
+                  "type": "address"
+                }
+              ],
+              "name": "transferOwnership",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
