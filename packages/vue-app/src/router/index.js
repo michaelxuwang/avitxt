@@ -29,9 +29,29 @@ const routes = [
     component: () => import('../views/CreateCompetition.vue')
   },
   {
+    path: '/edit/:address',
+    name: 'EditCompetition',
+    component: () => import('../views/EditCompetition.vue')
+  },
+  {
     path: '/view/:address',
     name: 'ViewCompetition',
     component: () => import('../views/ViewCompetition.vue')
+  },
+  {
+    path: '/list-submissions/:address',
+    name: 'ListSubmissions',
+    component: () => import('../views/ListSubmissions.vue')
+  },
+  {
+    path: '/submit/:address',
+    name: 'CreateSubmission',
+    component: () => import('../views/CreateSubmission.vue')
+  },
+  {
+    path: '/view/:address/:submissionId',
+    name: 'ViewSubmission',
+    component: () => import('../views/ViewSubmission.vue')
   },
 ]
 

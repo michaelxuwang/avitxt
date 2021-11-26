@@ -37,8 +37,10 @@ contract Competition is Ownable {
   uint256 public submissionFee;
   string public submissionDetailsFile;
 
-  string[] public externalDataSources;
+  string[] public externalDataSourceLabels;
+  string[] public externalDataSourceUrls;
 
+  string[] public requirementLabels;
   uint256[] public requirementWeights;
   uint256 public requirementTotalWeight;
 
@@ -82,7 +84,9 @@ contract Competition is Ownable {
     uint256 _finalizeDate,
     uint256 _submissionFee,
     string memory _submissionDetailsFile,
-    string[] memory _externalDataSources,
+    // string[] memory _externalDataSourceLabels,
+    // string[] memory _externalDataSourceUrls,
+    string[] memory _requirementLabels,
     uint256[] calldata _weights
     ) public onlyOwner {
     name = _name;
@@ -94,8 +98,9 @@ contract Competition is Ownable {
     finalizeDate = _finalizeDate;
     submissionFee = _submissionFee;
     submissionDetailsFile = _submissionDetailsFile;
-    externalDataSources = _externalDataSources;
-    setRequirementWeights(_weights);
+    // externalDataSourceLabels = _externalDataSourceLabels;
+    // externalDataSourceUrls = _externalDataSourceUrls;
+    setRequirements(_requirementLabels, _weights);
 
     emit InfoChanged();
   }
@@ -114,7 +119,13 @@ contract Competition is Ownable {
     emit StateChanged(state);
   }
 
-  function setRequirementWeights(uint256[] calldata _weights) public onlyOwner {
+  function getExternalDataSources() public view returns (string[] memory labels, string[] memory urls) {
+    labels = externalDataSourceLabels;
+    urls = externalDataSourceUrls;
+  }
+
+  function setRequirements(string[] memory _requirementLabels, uint256[] calldata _weights) public onlyOwner {
+    requirementLabels = _requirementLabels;
     requirementWeights = _weights;
 
     requirementTotalWeight = 0;
@@ -122,8 +133,17 @@ contract Competition is Ownable {
       requirementTotalWeight += _weights[i];
   }
 
+  function getRequirement() public view returns (string[] memory labels, uint256[] memory weights) {
+    labels = requirementLabels;
+    weights = requirementWeights;
+  }
+
   function addJudge(address judge) public onlyOwner {
     judges.add(judge);
+  }
+
+  function getJudges() public view returns(address[] memory) {
+    return judges.values();
   }
 
   function getMyRoles() public view returns(bool isOwner, bool isJudge, bool isApplicant) {
@@ -207,15 +227,16 @@ contract Competition is Ownable {
     return submission.scoreSheets[judge];
   }
 
-  // function getSubmissionScoreSheetCount(address _applicant) public view returns(uint256) {
-  //   Submission storage submission = submissions[_applicant];
-  //   return submission.allScoreSheets.length;
-  // }
+  function getSubmissionScoreSheetCount(address _applicant) public view returns(uint256) {
+    Submission storage submission = submissions[_applicant];
+    return submission.allScoreSheets.length;
+  }
   
-  // function getSubmissionScoreSheetAt(address _applicant, uint256 index) public view returns(ScoreSheet memory) {
-  //   Submission storage submission = submissions[_applicant];
-  //   return submission.allScoreSheets[index];
-  // }
+  function getSubmissionScoreSheetAt(address _applicant, uint256 index) public view returns(ScoreSheet memory sheet, uint256[] memory scores) {
+    Submission storage submission = submissions[_applicant];
+    sheet = submission.allScoreSheets[index];
+    scores = sheet.scores;
+  }
 
   function getSubmissionScoreSheets(address _applicant) public view returns(ScoreSheet[] memory) {
     Submission storage submission = submissions[_applicant];

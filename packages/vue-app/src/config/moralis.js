@@ -20,7 +20,29 @@ Moralis.getContract = async (name, address) => {
     if (!address)
         address = contractInfo.address;
 
-    return new Moralis.$web3.eth.Contract(contractInfo.abi, address);
+    const contract = new Moralis.$web3.eth.Contract(contractInfo.abi, address);
+    contract.fetchAllPlainData = fetchAllPlainData;
+    return contract;
+}
+
+async function fetchAllPlainData() {
+    const data = {};
+    
+    const plainMethodNames = Object.keys(this.methods).filter(x => x.indexOf('()') > 0);
+    const methods = plainMethodNames.map(x => this.methods[x]()).filter(x => x._method.stateMutability === 'view');
+    
+    const promises = methods.map(x => x.call());
+    const results = await Promise.all(promises);
+
+    for (let i=0; i<methods.length; i++) {
+        let name = methods[i]._method.name;
+        if (name.startsWith('get'))
+            name = name[3].toLowerCase() + name.substr(4);
+        data[name] = results[i];
+    }
+    // console.log('fetchAllPlainData', methods, promises, results, data);
+
+    return data;
 }
 
 const MoralisConfig = Moralis;

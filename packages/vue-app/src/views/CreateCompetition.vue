@@ -34,6 +34,9 @@
 </template>
 
 <script>
+
+import categories from "../config/categories.json";
+
 export default {
     name: 'CreateCompetition',
 
@@ -44,7 +47,7 @@ export default {
             value => (value || '').length <= 40 || 'Max 40 characters',
         ],
 
-        categories: ['College Admission', 'Job Application', 'Scholarship', 'Hackathon'],
+        categories,
         category: '',
 
         info: '',
