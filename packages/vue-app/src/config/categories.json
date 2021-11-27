@@ -1,7 +1,12 @@
 [
     "College Admission",
-    "Job Application",
     "Scholarship",
     "Hackathon",
-    "Audition"
+    "Job Application",
+    "Job Performance Review",
+    "Audition",
+    "Visual Arts Competition",
+    "Performing Arts Competition",
+    "Real Estate Sale",
+    "Other Competitive Event"
 ]
