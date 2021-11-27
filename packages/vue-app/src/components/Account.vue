@@ -1,13 +1,13 @@
 <template>
     <div>
         <span v-if="user === null">
-            <v-btn @click.prevent="login" color="primary" elevation="2" rounded>
+            <v-btn @click.prevent="login" color="primary" elevation="2">
                 Login
             </v-btn>
         </span>
         <span v-else>
             <span class="address"> {{user.get("ethAddress")}} </span>
-            <v-btn @click.prevent="logout" color="secondary" elevation="2" rounded>
+            <v-btn @click.prevent="logout" color="secondary" elevation="2">
                 Logout
             </v-btn>
         </span>

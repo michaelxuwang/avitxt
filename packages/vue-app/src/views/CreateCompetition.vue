@@ -1,7 +1,6 @@
 <template>
-    <v-row class="text-center" justify="center">
-      <v-col class="mb-4">
-          <br>
+    <v-row class="text-left" justify="center">
+      <v-col class="mt-8" cols="10">
         <h1 class="display-2 font-weight-bold mb-3">
           Create Competition
         </h1>
@@ -66,7 +65,7 @@ export default {
                 const compAddress = receipt.events.CompetitionCreated.returnValues.competitionAddress;
                 console.log('competition address', compAddress);
 
-                this.$router.push(`/view/${compAddress}`);
+                this.$router.push(`/edit/${compAddress}`);
             } catch (e) {
                 console.log(e);
             }

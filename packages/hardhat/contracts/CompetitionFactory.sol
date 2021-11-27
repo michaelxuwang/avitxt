@@ -13,7 +13,7 @@ contract CompetitionFactory {
 
     function createCompetition(string memory _name, string memory _info, string memory _category) external returns(address) {
         Competition competition = new Competition();
-        competition.setInfo(_name, _info, _category);
+        competition.setBasicInfo(_name, _info, _category);
         competition.transferOwnership(msg.sender);
         competitions.push(competition);
 

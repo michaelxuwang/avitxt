@@ -1,7 +1,6 @@
 <template>
-    <v-row class="text-center" justify="center">
-      <v-col class="mb-4">
-        <br>
+    <v-row class="text-justify" justify="center">
+      <v-col class="mt-8" cols="10">
         <h1 class="display-2 font-weight-bold mb-3">
           Competitions
         </h1>

@@ -15,7 +15,6 @@ contract Competition is Ownable {
   string public name;
   string public info;
   string public category;
-  string public detailsFile;
   
   // dates
   uint256 public openDate;
@@ -33,16 +32,17 @@ contract Competition is Ownable {
   State public state = State.Created;
   event StateChanged(State state);
 
-  // submission requirements
-  uint256 public submissionFee;
-  string public submissionDetailsFile;
+  // requirements
+  string public requirementsInfo;
+  string[] public scoringRubricLabels;
+  uint256[] public scoringRubricWeights;
+  uint256 public scoringRubricTotalWeight;
 
   string[] public externalDataSourceLabels;
   string[] public externalDataSourceUrls;
 
-  string[] public requirementLabels;
-  uint256[] public requirementWeights;
-  uint256 public requirementTotalWeight;
+  // funding
+  uint256 public submissionFee;
 
   // score sheet
   struct ScoreSheet {
@@ -54,7 +54,10 @@ contract Competition is Ownable {
 
   // submissions
   struct Submission {
+    string name;
+    string uid;
     string info;
+    string file;
     uint256 submissionDate;
     ScoreSheet[] allScoreSheets;
     address[] judges;
@@ -74,41 +77,28 @@ contract Competition is Ownable {
   constructor() {
   }
 
-  function setAllInfo(
+  function setBasicInfo(string memory _name, string memory _info, string memory _category) public onlyOwner {
+    name = _name;
+    info = _info;
+    category = _category;
+  }
+
+  function setInfo(
     string memory _name,
     string memory _info,
     string memory _category,
-    string memory _detailsFile,
     uint256 _openDate,
     uint256 _closeDate,
-    uint256 _finalizeDate,
-    uint256 _submissionFee,
-    string memory _submissionDetailsFile,
-    // string[] memory _externalDataSourceLabels,
-    // string[] memory _externalDataSourceUrls,
-    string[] memory _requirementLabels,
-    uint256[] calldata _weights
+    uint256 _finalizeDate
     ) public onlyOwner {
     name = _name;
     info = _info;
     category = _category;
-    detailsFile = _detailsFile;
     openDate = _openDate;
     closeDate = _closeDate;
     finalizeDate = _finalizeDate;
-    submissionFee = _submissionFee;
-    submissionDetailsFile = _submissionDetailsFile;
-    // externalDataSourceLabels = _externalDataSourceLabels;
-    // externalDataSourceUrls = _externalDataSourceUrls;
-    setRequirements(_requirementLabels, _weights);
 
     emit InfoChanged();
-  }
-
-  function setInfo(string memory _name, string memory _info, string memory _category) public onlyOwner {
-    name = _name;
-    info = _info;
-    category = _category;
   }
 
   function setState(State _state) public onlyOwner {
@@ -119,23 +109,38 @@ contract Competition is Ownable {
     emit StateChanged(state);
   }
 
+  function setRequirements(
+    string memory _requirementsInfo,
+    string[] memory _scoringRubricLabels,
+    uint256[] calldata _scoringRubricWeights,
+    string[] memory _externalDataSourceLabels,
+    string[] memory _externalDataSourceUrls
+    ) public onlyOwner {
+    requirementsInfo = _requirementsInfo;
+    externalDataSourceLabels = _externalDataSourceLabels;
+    externalDataSourceUrls = _externalDataSourceUrls;
+    setScoringRubrics(_scoringRubricLabels, _scoringRubricWeights);
+
+    emit InfoChanged();
+  }
+
   function getExternalDataSources() public view returns (string[] memory labels, string[] memory urls) {
     labels = externalDataSourceLabels;
     urls = externalDataSourceUrls;
   }
 
-  function setRequirements(string[] memory _requirementLabels, uint256[] calldata _weights) public onlyOwner {
-    requirementLabels = _requirementLabels;
-    requirementWeights = _weights;
+  function setScoringRubrics(string[] memory _scoringRubricLabels, uint256[] calldata _weights) public onlyOwner {
+    scoringRubricLabels = _scoringRubricLabels;
+    scoringRubricWeights = _weights;
 
-    requirementTotalWeight = 0;
+    scoringRubricTotalWeight = 0;
     for (uint256 i=0; i<_weights.length; i++)
-      requirementTotalWeight += _weights[i];
+      scoringRubricTotalWeight += _weights[i];
   }
 
-  function getRequirement() public view returns (string[] memory labels, uint256[] memory weights) {
-    labels = requirementLabels;
-    weights = requirementWeights;
+  function getScoringRubrics() public view returns (string[] memory labels, uint256[] memory weights) {
+    labels = scoringRubricLabels;
+    weights = scoringRubricWeights;
   }
 
   function addJudge(address judge) public onlyOwner {
@@ -156,13 +161,20 @@ contract Competition is Ownable {
     isApplicant = (submissions[caller].submissionDate != 0);
   }
 
-  function addSubmission(string memory _info) public {
+  function setSubmissionFee(uint256 fee) public onlyOwner {
+    submissionFee = fee;
+  }
+
+  function addSubmission(string memory _name, string memory _uid, string memory _info, string memory _file) public payable {
     address applicant = msg.sender;
 
     Submission storage submission = submissions[applicant];
     if (submission.submissionDate == 0)
       applicants.push(applicant);
+    submission.name = _name;
+    submission.uid = _uid;
     submission.info = _info;
+    submission.file = _file;
     submission.submissionDate = block.timestamp;
 
     emit SubmissionAdded(applicant);
@@ -173,7 +185,7 @@ contract Competition is Ownable {
   }
 
   function scoreSubmission(address _applicant, uint256[] calldata _scores) public {
-    require(_scores.length == requirementWeights.length, "Mismatching number of scores");
+    require(_scores.length == scoringRubricWeights.length, "Mismatching number of scores");
 
     address judge = msg.sender;
     require(judges.contains(judge), "Only judges can score submissions");
@@ -201,9 +213,9 @@ contract Competition is Ownable {
 
     uint256 totalWeightedScore = 0;
     for (uint256 i=0; i<_scores.length; i++)
-      totalWeightedScore += _scores[i] * requirementWeights[i];
+      totalWeightedScore += _scores[i] * scoringRubricWeights[i];
 
-    scoreSheet.weightedScore = totalWeightedScore / requirementTotalWeight;
+    scoreSheet.weightedScore = totalWeightedScore / scoringRubricTotalWeight;
     submission.weightedScore = (submission.weightedScore * (submission.judges.length - 1) + scoreSheet.weightedScore)
                              / submission.judges.length;
 

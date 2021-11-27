@@ -1,9 +1,8 @@
 <template>
-    <v-row class="text-center" justify="center">
-      <v-col class="mb-4">
-          <br>
+    <v-row class="text-justify" justify="center" v-if="data">
+      <v-col class="mt-8" cols="10">
         <h1 class="display-2 font-weight-bold mb-3">
-          Create Submission <span v-if="data">for {{data.name}} </span>
+          Apply to {{data.name}}
         </h1>
       </v-col>
 
@@ -11,10 +10,32 @@
         class="mb-5"
         cols="10"
       >
+        <h4>Requirements</h4>
+        <p>
+          {{data.requirementsInfo}}
+        </p>
+
+        <p/>
+        <h4>Submission Fee</h4>
+        {{data.submissionFee}}
+
+        <v-divider class="mt-8 mb-8"></v-divider>
+
         <v-text-field
             v-model="name"
             label="Name"
             :rules="nameRules"
+        ></v-text-field>
+
+        <v-text-field
+            v-model="uid"
+            label="Universal ID"
+            :rules="nameRules"
+        ></v-text-field>
+
+        <v-text-field
+            v-model="file"
+            label="Upload File"
         ></v-text-field>
 
         <v-textarea
@@ -42,7 +63,9 @@ export default {
             value => (value || '').length <= 80 || 'Max 80 characters',
         ],
 
+        uid: '',
         info: '',
+        file: '',
     }),
 
     created() {
@@ -63,11 +86,15 @@ export default {
 
         async create() {
             try {
-                const receipt = await this.contract.methods.addSubmission(this.info)
-                    .send({
-                      from: this.$moralis.User.current().attributes.ethAddress,
-                      value: this.data.submissionFee
-                    });
+                const receipt = await this.contract.methods.addSubmission(
+                  this.name,
+                  this.uid,
+                  this.info,
+                  this.file
+                ).send({
+                  from: this.$moralis.User.current().attributes.ethAddress,
+                  value: this.data.submissionFee
+                });
                 console.log('receipt', receipt);
 
                 const submissionId = receipt.events.SubmissionAdded.returnValues.submissionId;

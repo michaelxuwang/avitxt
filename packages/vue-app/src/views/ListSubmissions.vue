@@ -1,9 +1,8 @@
 <template>
-    <v-row class="text-center" justify="center">
-      <v-col class="mb-4">
-          <br>
+    <v-row class="text-justify" justify="center" v-if="data">
+      <v-col class="mt-8" cols="10">
         <h1 class="display-2 font-weight-bold mb-3">
-          Submissions <span v-if="data">for {{data.name}}</span>
+          {{data.name}} Submissions
         </h1>
       </v-col>
 
@@ -27,8 +26,19 @@
             </template>
             <template v-slot:item.submissionId="{ item }">
                 <router-link :to="'/view/' + address + '/' + item.submissionId">
-                    {{ item.submissionId }}
+                    {{ item.name }} ({{item.submissionId}})
                 </router-link>
+            </template>
+            <template v-slot:item.submissionDate="{ item }">
+                {{ item.submissionDate.toLocaleString() }}
+            </template>
+            <template v-slot:item.iJudged="{ item }">
+              <v-simple-checkbox
+                v-model="item.iJudged"
+                color="green"
+                disabled
+                @-click.prevent="$router.push('/view/' + address + '/' + item.submissionId)"
+              ></v-simple-checkbox>
             </template>
         </v-data-table>
       </v-col>
@@ -50,7 +60,7 @@ export default {
 
     computed: {
       headers () {
-        return [
+        const h = [
           {
             text: 'Applicant',
             align: 'start',
@@ -58,7 +68,15 @@ export default {
           },
           { text: 'Weighted Score', value: 'weightedScore' },
           { text: 'Submission Date', value: 'submissionDate' },
-        ]
+        ];
+        
+        if (this.roles.isJudge) {
+          h.push({
+            text: 'My Judging', value: 'iJudged'
+          });
+        }
+
+        return h;
       },
     },
 
@@ -71,14 +89,27 @@ export default {
             try {
               this.address = this.$route.params.address;
               this.contract = await this.$moralis.getContract('Competition', this.address);
-              console.log('contract', this.contract);
               this.data = await this.contract.fetchAllPlainData();
+              this.roles = await this.contract.methods.getRoles(this.$moralis.User.current().attributes.ethAddress).call();
 
-              const submissions = await Promise.all(this.data.applicants.map(x => this.contract.methods.submissions(x).call()));
+              const submissions = await Promise.all(
+                this.data.applicants.map(x =>
+                  this.contract.methods.submissions(x).call()));
+              
+              const judgeScoreSheets = this.roles.isJudge
+                ? await Promise.all(
+                  this.data.applicants.map(x =>
+                    this.contract.methods.getSubmissionScoreSheetByJudge(x, this.$moralis.User.current().attributes.ethAddress).call()))
+                : null;
+
               for (let i=0; i<this.data.applicants.length; i++) {
                 submissions[i].submissionId = this.data.applicants[i];
+                submissions[i].submissionDate = new Date(parseInt(submissions[i].submissionDate) * 1000);
+                if (this.roles.isJudge)
+                  submissions[i].iJudged = (judgeScoreSheets[i].scoreDate > 0);
               }
               this.submissions = submissions;
+              console.log('submissions', this.submissions, judgeScoreSheets);
             } catch (e) {
                 console.log(e);
             }

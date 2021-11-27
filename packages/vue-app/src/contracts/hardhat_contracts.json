@@ -784,7 +784,7 @@
       "chainId": "31337",
       "contracts": {
         "Competition": {
-          "address": "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
+          "address": "0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f",
           "abi": [
             {
               "inputs": [],
@@ -878,13 +878,28 @@
               "inputs": [
                 {
                   "internalType": "string",
+                  "name": "_name",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_uid",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
                   "name": "_info",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_file",
                   "type": "string"
                 }
               ],
               "name": "addSubmission",
               "outputs": [],
-              "stateMutability": "nonpayable",
+              "stateMutability": "payable",
               "type": "function"
             },
             {
@@ -927,19 +942,6 @@
                   "internalType": "uint256",
                   "name": "",
                   "type": "uint256"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
-              "inputs": [],
-              "name": "detailsFile",
-              "outputs": [
-                {
-                  "internalType": "string",
-                  "name": "",
-                  "type": "string"
                 }
               ],
               "stateMutability": "view",
@@ -1064,24 +1066,6 @@
               "type": "function"
             },
             {
-              "inputs": [],
-              "name": "getRequirement",
-              "outputs": [
-                {
-                  "internalType": "string[]",
-                  "name": "labels",
-                  "type": "string[]"
-                },
-                {
-                  "internalType": "uint256[]",
-                  "name": "weights",
-                  "type": "uint256[]"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
               "inputs": [
                 {
                   "internalType": "address",
@@ -1105,6 +1089,24 @@
                   "internalType": "bool",
                   "name": "isApplicant",
                   "type": "bool"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "getScoringRubrics",
+              "outputs": [
+                {
+                  "internalType": "string[]",
+                  "name": "labels",
+                  "type": "string[]"
+                },
+                {
+                  "internalType": "uint256[]",
+                  "name": "weights",
+                  "type": "uint256[]"
                 }
               ],
               "stateMutability": "view",
@@ -1346,51 +1348,13 @@
               "type": "function"
             },
             {
-              "inputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "name": "requirementLabels",
+              "inputs": [],
+              "name": "requirementsInfo",
               "outputs": [
                 {
                   "internalType": "string",
                   "name": "",
                   "type": "string"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
-              "inputs": [],
-              "name": "requirementTotalWeight",
-              "outputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
-              "inputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "name": "requirementWeights",
-              "outputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
                 }
               ],
               "stateMutability": "view",
@@ -1417,6 +1381,57 @@
             {
               "inputs": [
                 {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "name": "scoringRubricLabels",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "scoringRubricTotalWeight",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "name": "scoringRubricWeights",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
                   "internalType": "string",
                   "name": "_name",
                   "type": "string"
@@ -1430,10 +1445,28 @@
                   "internalType": "string",
                   "name": "_category",
                   "type": "string"
+                }
+              ],
+              "name": "setBasicInfo",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "_name",
+                  "type": "string"
                 },
                 {
                   "internalType": "string",
-                  "name": "_detailsFile",
+                  "name": "_info",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "_category",
                   "type": "string"
                 },
                 {
@@ -1450,49 +1483,6 @@
                   "internalType": "uint256",
                   "name": "_finalizeDate",
                   "type": "uint256"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "_submissionFee",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "string",
-                  "name": "_submissionDetailsFile",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string[]",
-                  "name": "_requirementLabels",
-                  "type": "string[]"
-                },
-                {
-                  "internalType": "uint256[]",
-                  "name": "_weights",
-                  "type": "uint256[]"
-                }
-              ],
-              "name": "setAllInfo",
-              "outputs": [],
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "inputs": [
-                {
-                  "internalType": "string",
-                  "name": "_name",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "_info",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "_category",
-                  "type": "string"
                 }
               ],
               "name": "setInfo",
@@ -1503,8 +1493,41 @@
             {
               "inputs": [
                 {
+                  "internalType": "string",
+                  "name": "_requirementsInfo",
+                  "type": "string"
+                },
+                {
                   "internalType": "string[]",
-                  "name": "_requirementLabels",
+                  "name": "_scoringRubricLabels",
+                  "type": "string[]"
+                },
+                {
+                  "internalType": "uint256[]",
+                  "name": "_scoringRubricWeights",
+                  "type": "uint256[]"
+                },
+                {
+                  "internalType": "string[]",
+                  "name": "_externalDataSourceLabels",
+                  "type": "string[]"
+                },
+                {
+                  "internalType": "string[]",
+                  "name": "_externalDataSourceUrls",
+                  "type": "string[]"
+                }
+              ],
+              "name": "setRequirements",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string[]",
+                  "name": "_scoringRubricLabels",
                   "type": "string[]"
                 },
                 {
@@ -1513,7 +1536,7 @@
                   "type": "uint256[]"
                 }
               ],
-              "name": "setRequirements",
+              "name": "setScoringRubrics",
               "outputs": [],
               "stateMutability": "nonpayable",
               "type": "function"
@@ -1532,6 +1555,19 @@
               "type": "function"
             },
             {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "fee",
+                  "type": "uint256"
+                }
+              ],
+              "name": "setSubmissionFee",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
               "inputs": [],
               "name": "state",
               "outputs": [
@@ -1539,19 +1575,6 @@
                   "internalType": "enum Competition.State",
                   "name": "",
                   "type": "uint8"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
-              "inputs": [],
-              "name": "submissionDetailsFile",
-              "outputs": [
-                {
-                  "internalType": "string",
-                  "name": "",
-                  "type": "string"
                 }
               ],
               "stateMutability": "view",
@@ -1582,7 +1605,22 @@
               "outputs": [
                 {
                   "internalType": "string",
+                  "name": "name",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "uid",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
                   "name": "info",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "file",
                   "type": "string"
                 },
                 {
@@ -1615,7 +1653,7 @@
           ]
         },
         "CompetitionFactory": {
-          "address": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
+          "address": "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
           "abi": [
             {
               "inputs": [],
