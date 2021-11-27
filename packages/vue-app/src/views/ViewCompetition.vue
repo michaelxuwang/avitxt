@@ -106,8 +106,9 @@ export default {
               const contract = await this.$moralis.getContract('Competition', this.address);
               console.log('contract', contract);
               this.data = await contract.fetchAllPlainData();
+              console.log('data', this.data);
               this.roles = await contract.methods.getRoles(this.$moralis.User.current().attributes.ethAddress).call();
-              console.log('data address', this.data, this.roles);
+              console.log('roles', this.roles);
             } catch (e) {
                 console.log(e);
             }
