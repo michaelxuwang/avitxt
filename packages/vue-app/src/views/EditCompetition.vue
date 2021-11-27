@@ -492,29 +492,31 @@ export default {
 
               this.requirementsInfo = this.data.requirementsInfo;
               
-              if (this.data.scoringRubrics.labels.length) {
-                this.scoringRubrics = [];
+              // if (this.data.scoringRubrics.labels.length) {
+                const newScoringRubrics = [];
                 for (let i=0; i<this.data.scoringRubrics.labels.length; i++) {
-                  this.scoringRubrics.push({
+                  newScoringRubrics.push({
                     label: this.data.scoringRubrics.labels[i],
                     weight: this.data.scoringRubrics.weights[i]
                   })
                 }
-              } else {
-                this.scoringRubrics = [{}];
-              }
+                this.scoringRubrics = newScoringRubrics;
+              // } else {
+              //   this.scoringRubrics = [{}];
+              // }
 
-              if (this.data.externalDataSources.labels.length) {
-                this.externalDataSources = [];
+              // if (this.data.externalDataSources.labels.length) {
+                const newExternalDataSources = [];
                 for (let i=0; i<this.data.externalDataSources.labels.length; i++) {
-                  this.externalDataSources.push({
+                  newExternalDataSources.push({
                     label: this.data.externalDataSources.labels[i],
                     url: this.data.externalDataSources.urls[i]
                   })
                 }
-              } else {
-                this.externalDataSources = [{}];
-              }
+                this.externalDataSources = newExternalDataSources;
+              // } else {
+              //   this.externalDataSources = [{}];
+              // }
 
               this.submissionFee = this.data.submissionFee;
 
@@ -532,7 +534,7 @@ export default {
                   Date.parse(this.openDate + ' ' + this.openTime) / 1000,
                   Date.parse(this.closeDate + ' ' + this.closeTime) / 1000,
                   Date.parse(this.finalizeDate + ' ' + this.finalizeTime) / 1000
-                ).send({from: this.$moralis.User.current().attributes.ethAddress});
+                ).send({from: this.$store.state.userAddress});
                 
                 console.log('receipt', receipt);
                 this.fetchData();
@@ -548,7 +550,7 @@ export default {
             try {
                 const receipt = await this.contract.methods.addJudge(this.judge)
                     .send({
-                      from: this.$moralis.User.current().attributes.ethAddress,
+                      from: this.$store.state.userAddress,
                     });
                 console.log('receipt', receipt);
                 this.fetchData();
@@ -571,7 +573,7 @@ export default {
                       this.externalDataSources.map(x => x.url)
                     )
                     .send({
-                      from: this.$moralis.User.current().attributes.ethAddress,
+                      from: this.$store.state.userAddress,
                     });
                 console.log('receipt', receipt);
                 this.fetchData();
@@ -592,7 +594,7 @@ export default {
                 const receipt = await this.contract.methods
                     .setSubmissionFee(this.submissionFee)
                     .send({
-                      from: this.$moralis.User.current().attributes.ethAddress,
+                      from: this.$store.state.userAddress,
                     });
                 console.log('receipt', receipt);
                 this.fetchData();

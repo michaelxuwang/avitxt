@@ -91,6 +91,7 @@ export default {
 
     data: () => ({
         address: null,
+        contract: null,
         data: null,
         roles: null
     }),
@@ -103,11 +104,16 @@ export default {
         async fetchData () {
             try {
               this.address = this.$route.params.address;
-              const contract = await this.$moralis.getContract('Competition', this.address);
-              console.log('contract', contract);
-              this.data = await contract.fetchAllPlainData();
+              this.contract = await this.$moralis.getContract('Competition', this.address);
+              console.log('contract', this.contract);
+
+              this.data = await this.contract.fetchAllPlainData();
               console.log('data', this.data);
-              this.roles = await contract.methods.getRoles(this.$moralis.User.current().attributes.ethAddress).call();
+
+              if (this.$store.state.user)
+                this.roles = await this.contract.methods.getRoles(this.$store.state.userAddress).call();
+              else
+                this.roles = null;
               console.log('roles', this.roles);
             } catch (e) {
                 console.log(e);

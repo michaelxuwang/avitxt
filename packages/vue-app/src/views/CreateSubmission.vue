@@ -44,23 +44,33 @@
             :rules="nameRules"
         ></v-text-field>
 
-        <v-text-field
+        <!-- <v-text-field
             v-model="file"
             label="Upload File"
-        ></v-text-field>
+        ></v-text-field> -->
+        
+        <v-file-input
+          v-model="file"
+          label="Upload File"
+          show-size
+        ></v-file-input>
 
         <v-textarea
           v-model="info"
           label="Submission Data"
         ></v-textarea>
 
-        <v-btn @click.prevent="create" color="success" :disabled="txing">Submit</v-btn>
+        <v-btn @click.prevent="create" color="success" :disabled="txing || !$store.state.user">Submit</v-btn>
         <v-progress-circular
           indeterminate
           color="primary"
           class="ml-2"
           v-show="txing"
         ></v-progress-circular>
+        <span
+          class="red--text ml-2"
+          v-show="!$store.state.user"
+        >Login first</span>
       </v-col>
     </v-row>
   </div>
@@ -83,7 +93,7 @@ export default {
 
         uid: '',
         info: '',
-        file: '',
+        file: null,
 
         txing: false,
     }),
@@ -107,13 +117,20 @@ export default {
         async create() {
             this.txing = true;
             try {
+                const mFile = this.file ? new this.$moralis.File(this.file.name, this.file) : null;
+                let ipfsFile = '';
+                if (mFile) {
+                  await mFile.saveIPFS();
+                  ipfsFile = mFile.ipfs();
+                }
+
                 const receipt = await this.contract.methods.addSubmission(
                   this.name,
                   this.uid,
                   this.info,
-                  this.file
+                  ipfsFile
                 ).send({
-                  from: this.$moralis.User.current().attributes.ethAddress,
+                  from: this.$store.state.userAddress,
                   value: this.data.submissionFee
                 });
                 console.log('receipt', receipt);

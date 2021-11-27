@@ -35,8 +35,12 @@
                 class="mx-4"
                 ></v-text-field>
             </template>
+            <!-- <template v-slot:header.submissionId="{ header }">
+              <v-icon>mdi-account-box-outline</v-icon> {{ header.text }}
+            </template> -->
             <template v-slot:item.submissionId="{ item }">
-                <router-link :to="'/view/' + address + '/' + item.submissionId">
+                <router-link :to="'/view/' + address + '/' + item.submissionId" style="text-decoration:none;">
+                    <v-icon>mdi-account-box-outline</v-icon>
                     {{ item.name }} ({{item.submissionId}})
                 </router-link>
             </template>
@@ -65,6 +69,7 @@ export default {
         address: null,
         contract: null,
         data: null,
+        roles: null,
 
         submissions: null,
         search: '',
@@ -82,7 +87,7 @@ export default {
           { text: 'Submission Date', value: 'submissionDate' },
         ];
         
-        if (this.roles.isJudge) {
+        if (this.roles && this.roles.isJudge) {
           h.push({
             text: 'My Judging', value: 'iJudged'
           });
@@ -102,22 +107,25 @@ export default {
               this.address = this.$route.params.address;
               this.contract = await this.$moralis.getContract('Competition', this.address);
               this.data = await this.contract.fetchAllPlainData();
-              this.roles = await this.contract.methods.getRoles(this.$moralis.User.current().attributes.ethAddress).call();
+              if (this.$store.state.user)
+                this.roles = await this.contract.methods.getRoles(this.$store.state.userAddress).call();
+              else
+                this.roles = null;
 
               const submissions = await Promise.all(
                 this.data.applicants.map(x =>
                   this.contract.methods.submissions(x).call()));
               
-              const judgeScoreSheets = this.roles.isJudge
+              const judgeScoreSheets = (this.roles && this.roles.isJudge)
                 ? await Promise.all(
                   this.data.applicants.map(x =>
-                    this.contract.methods.getSubmissionScoreSheetByJudge(x, this.$moralis.User.current().attributes.ethAddress).call()))
+                    this.contract.methods.getSubmissionScoreSheetByJudge(x, this.$store.state.userAddress).call()))
                 : null;
 
               for (let i=0; i<this.data.applicants.length; i++) {
                 submissions[i].submissionId = this.data.applicants[i];
                 submissions[i].submissionDate = new Date(parseInt(submissions[i].submissionDate) * 1000);
-                if (this.roles.isJudge)
+                if (this.roles && this.roles.isJudge)
                   submissions[i].iJudged = (judgeScoreSheets[i].scoreDate > 0);
               }
               this.submissions = submissions;
@@ -126,7 +134,6 @@ export default {
                 console.log(e);
             }
         },
-
     },
 
     watch: {

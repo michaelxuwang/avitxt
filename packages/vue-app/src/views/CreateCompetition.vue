@@ -27,7 +27,7 @@
           label="Description"
         ></v-textarea>
 
-        <v-btn @click.prevent="create" color="success" :disabled="txing">
+        <v-btn @click.prevent="create" color="success" :disabled="txing || !$store.state.user">
           Create
         </v-btn>
         <v-progress-circular
@@ -36,6 +36,10 @@
           class="ml-2"
           v-show="txing"
         ></v-progress-circular>
+        <span
+          class="red--text ml-2"
+          v-show="!$store.state.user"
+        >Login first</span>
       </v-col>
     </v-row>
 </template>
@@ -64,14 +68,13 @@ export default {
 
     methods: {
         async create() {
+            this.txing = true;
             try {
-                this.txing = true;
-
                 console.log('create', this.name, this.info, this.category);
                 const contract = await this.$moralis.getContract('CompetitionFactory');
                 console.log('contract', contract);
                 const receipt = await contract.methods.createCompetition(this.name, this.info, this.category)
-                    .send({from: this.$moralis.User.current().attributes.ethAddress});
+                    .send({from: this.$store.state.userAddress});
                 console.log('receipt', receipt);
 
                 const compAddress = receipt.events.CompetitionCreated.returnValues.competitionAddress;

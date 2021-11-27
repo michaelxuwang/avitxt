@@ -15,6 +15,7 @@
         <v-row>
           <v-col class="col-7">
             <h1 class="display-2 font-weight-bold mb-3">
+              <v-icon x-large>mdi-account-box-outline</v-icon>
               {{submissionData.name}}
             </h1>
             {{submissionId}}
@@ -39,7 +40,7 @@
               Submission Time: {{new Date(parseInt(submissionData.submissionDate) * 1000).toLocaleString()}}
             </p>
             <p>
-              Submission File: <a :href="submissionData.file">{{submissionData.file}}</a>
+              Submission File: <a :href="submissionData.file" target="_blank">{{submissionData.file}}</a>
             </p>
           </v-col>
           <v-col cols="auto" class="text-center">
@@ -62,8 +63,8 @@
             hide-default-footer
         >
             <template v-slot:item.judge="{ item }">
-                <router-link :to="'/view-judge/' + item.judge">
-                    {{ item.judge }}
+                <router-link :to="'/view-judge/' + item.judge" style="text-decoration:none;">
+                    <v-icon>mdi-account-box</v-icon> {{ item.judge }}
                 </router-link>
             </template>
             <template v-slot:item.scoreDate="{ item }">
@@ -166,11 +167,15 @@ export default {
 
               this.showJudge = false;
               this.data = await this.contract.fetchAllPlainData();
-              this.roles = await this.contract.methods.getRoles(this.$moralis.User.current().attributes.ethAddress).call();
+
+              if (this.$store.state.user)
+                this.roles = await this.contract.methods.getRoles(this.$store.state.userAddress).call();
+              else
+                this.roles = null;
               
-              if (this.roles.isJudge) {
+              if (this.roles && this.roles.isJudge) {
                 const judgeScoreSheet = await this.contract.methods.getSubmissionScoreSheetByJudge(
-                  this.submissionId, this.$moralis.User.current().attributes.ethAddress).call();
+                  this.submissionId, this.$store.state.userAddress).call();
                   
                 let judgeScores = judgeScoreSheet.scores;
                 if (judgeScores.length != this.data.scoringRubrics.labels.length) {
@@ -210,7 +215,7 @@ export default {
                 const receipt = await this.contract.methods
                     .scoreSubmission(this.submissionId, this.judgeScores)
                     .send({
-                      from: this.$moralis.User.current().attributes.ethAddress,
+                      from: this.$store.state.userAddress,
                     });
                 console.log('receipt', receipt);
                 this.fetchData();
