@@ -43,7 +43,13 @@
           label="Submission Data"
         ></v-textarea>
 
-        <v-btn @click.prevent="create" color="success">Submit</v-btn>
+        <v-btn @click.prevent="create" color="success" :disabled="txing">Submit</v-btn>
+        <v-progress-circular
+          indeterminate
+          color="primary"
+          class="ml-2"
+          v-show="txing"
+        ></v-progress-circular>
       </v-col>
     </v-row>
 </template>
@@ -66,6 +72,8 @@ export default {
         uid: '',
         info: '',
         file: '',
+
+        txing: false,
     }),
 
     created() {
@@ -85,6 +93,7 @@ export default {
         },
 
         async create() {
+            this.txing = true;
             try {
                 const receipt = await this.contract.methods.addSubmission(
                   this.name,
@@ -103,7 +112,9 @@ export default {
                 this.$router.push(`/view/${this.address}/${submissionId}`);
             } catch (e) {
                 console.log(e);
+                alert(e.message ? e.message : JSON.stringify(e));
             }
+            this.txing = false;
         },
     },
 

@@ -39,6 +39,8 @@
     </v-app-bar>
 
     <v-main>
+      <!-- <v-breadcrumbs :items="breadcrumbs" class="ml-10"></v-breadcrumbs> -->
+      
       <router-view/>
     </v-main>
   </v-app>
@@ -54,6 +56,28 @@ export default {
   data: () => ({
     //
   }),
+
+  computed: {
+    breadcrumbs() {
+      return [
+        {
+          text: 'Home',
+          disabled: false,
+          href: '/',
+        },
+        {
+          text: 'Link 1',
+          disabled: false,
+          href: 'breadcrumbs_link_1',
+        },
+        {
+          text: 'Link 2',
+          disabled: true,
+          href: 'breadcrumbs_link_2',
+        },
+      ];
+    },
+  },
 
   components: {
     Account

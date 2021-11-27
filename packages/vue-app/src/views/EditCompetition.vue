@@ -229,7 +229,13 @@
             </v-row>
 
             <v-divider class="mt-8"></v-divider>
-            <v-btn @click.prevent="setInfo" color="success mt-8">Save</v-btn>
+            <v-btn @click.prevent="setInfo" color="success mt-8" :disabled="txing">Save</v-btn>
+            <v-progress-circular
+              indeterminate
+              color="primary"
+              class="ml-2"
+              v-show="txing"
+            ></v-progress-circular>
           </v-tab-item>
 
           <v-tab-item>
@@ -253,7 +259,7 @@
                 <v-col>
                   <v-text-field
                       v-model="item.weight"
-                      label="Weight (1 - 100)"
+                      label="Weight (1 - 100%)"
                   ></v-text-field>
                 </v-col>
                 <v-col>
@@ -311,8 +317,13 @@
             </v-col>
 
             <v-divider class="mt-8 mb-8"></v-divider>
-            <v-btn @click.prevent="setRequirements" color="success">Set Requirements</v-btn>
-
+            <v-btn @click.prevent="setRequirements" color="success" :disabled="txing">Set Requirements</v-btn>
+            <v-progress-circular
+              indeterminate
+              color="primary"
+              class="ml-2"
+              v-show="txing"
+            ></v-progress-circular>
           </v-tab-item>
 
           <v-tab-item>
@@ -329,7 +340,13 @@
                 label="New Judge Address"
             ></v-text-field>
 
-            <v-btn @click.prevent="addJudge" color="success">Add Judge</v-btn>
+            <v-btn @click.prevent="addJudge" color="success" :disabled="txing">Add Judge</v-btn>
+            <v-progress-circular
+              indeterminate
+              color="primary"
+              class="ml-2"
+              v-show="txing"
+            ></v-progress-circular>
 
           </v-tab-item>
 
@@ -363,7 +380,13 @@
               label="Allow applicant to choose more privacy-restrictive levels"
             ></v-checkbox>
 
-            <v-btn @click.prevent="setPrivacy" color="success">Save</v-btn>
+            <v-btn @click.prevent="setPrivacy" color="success" :disabled="txing">Save</v-btn>
+            <v-progress-circular
+              indeterminate
+              color="primary"
+              class="ml-2"
+              v-show="txing"
+            ></v-progress-circular>
           </v-tab-item>
 
           <v-tab-item>
@@ -372,7 +395,13 @@
                 label="Submission Fee"
             ></v-text-field>
 
-            <v-btn @click.prevent="setSubmissionFee" color="success">Save</v-btn>
+            <v-btn @click.prevent="setSubmissionFee" color="success" :disabled="txing">Save</v-btn>
+            <v-progress-circular
+              indeterminate
+              color="primary"
+              class="ml-2"
+              v-show="txing"
+            ></v-progress-circular>
           </v-tab-item>
         </v-tabs>
       </v-col>
@@ -430,6 +459,8 @@ export default {
         applicantCanChoose: true,
 
         submissionFee: null,
+
+        txing: false,
     }),
 
     created() {
@@ -489,10 +520,12 @@ export default {
 
             } catch (e) {
                 console.log(e);
+                alert(e.message ? e.message : JSON.stringify(e));
             }
         },
 
         async setInfo() {
+            this.txing = true;
             try {
                 const receipt = await this.contract.methods.setInfo(
                   this.name, this.info, this.category,
@@ -505,10 +538,13 @@ export default {
                 this.fetchData();
             } catch (e) {
                 console.log(e);
+                alert(e.message ? e.message : JSON.stringify(e));
             }
+            this.txing = false;
         },
 
         async addJudge() {
+            this.txing = true;
             try {
                 const receipt = await this.contract.methods.addJudge(this.judge)
                     .send({
@@ -518,10 +554,13 @@ export default {
                 this.fetchData();
             } catch (e) {
                 console.log(e);
+                alert(e.message ? e.message : JSON.stringify(e));
             }
+            this.txing = false;
         },
 
         async setRequirements() {
+            this.txing = true;
             try {
                 const receipt = await this.contract.methods
                     .setRequirements(
@@ -538,7 +577,9 @@ export default {
                 this.fetchData();
             } catch (e) {
                 console.log(e);
+                alert(e.message ? e.message : JSON.stringify(e));
             }
+            this.txing = false;
         },
 
         async setPrivacy() {
@@ -546,6 +587,7 @@ export default {
         },
 
         async setSubmissionFee() {
+            this.txing = true;
             try {
                 const receipt = await this.contract.methods
                     .setSubmissionFee(this.submissionFee)
@@ -556,7 +598,9 @@ export default {
                 this.fetchData();
             } catch (e) {
                 console.log(e);
+                alert(e.message ? e.message : JSON.stringify(e));
             }
+            this.txing = false;
         },
     },
 

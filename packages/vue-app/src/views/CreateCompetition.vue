@@ -27,7 +27,15 @@
           label="Description"
         ></v-textarea>
 
-        <v-btn @click.prevent="create" color="success">Create</v-btn>
+        <v-btn @click.prevent="create" color="success" :disabled="txing">
+          Create
+        </v-btn>
+        <v-progress-circular
+          indeterminate
+          color="primary"
+          class="ml-2"
+          v-show="txing"
+        ></v-progress-circular>
       </v-col>
     </v-row>
 </template>
@@ -50,11 +58,15 @@ export default {
         category: '',
 
         info: '',
+
+        txing: false,
     }),
 
     methods: {
         async create() {
             try {
+                this.txing = true;
+
                 console.log('create', this.name, this.info, this.category);
                 const contract = await this.$moralis.getContract('CompetitionFactory');
                 console.log('contract', contract);
@@ -68,7 +80,10 @@ export default {
                 this.$router.push(`/edit/${compAddress}`);
             } catch (e) {
                 console.log(e);
+                alert(e.message ? e.message : JSON.stringify(e));
             }
+
+            this.txing = false;
         },
     }
 }

@@ -1,4 +1,5 @@
 <template>
+  <div>
     <v-row class="text-left" justify="center" v-if="data && submissionData">
       <v-col class="mt-8" :cols="showJudge ? 8 : 10">
         <v-row>
@@ -10,7 +11,9 @@
           </v-col>
           <v-col class="text-right">
             <h3>
-              {{data.name}}
+              <router-link :to="'/view/' + address">
+                {{data.name}}
+              </router-link>
               <br>
               Submission
               <br>
@@ -84,14 +87,19 @@
                 ></v-text-field>
               </v-row>
 
-
-
-              <v-btn @click.prevent="scoreSubmission" color="success">Submit Score</v-btn>
+              <v-btn @click.prevent="scoreSubmission" color="success" :disabled="txing">Submit Score</v-btn>
+              <v-progress-circular
+                indeterminate
+                color="primary"
+                class="ml-2"
+                v-show="txing"
+              ></v-progress-circular>
             </div>
           </v-sheet>
         </v-col>
       </v-slide-x-reverse-transition>
     </v-row>
+  </div>
 </template>
 
 <script>
@@ -109,6 +117,8 @@ export default {
 
         showJudge: false,
         judgeScores: [],
+
+        txing: false,
     }),
 
     computed: {
@@ -187,6 +197,7 @@ export default {
         },
 
         async scoreSubmission() {
+            this.txing = true;
             try {
                 const receipt = await this.contract.methods
                     .scoreSubmission(this.submissionId, this.judgeScores)
@@ -197,7 +208,9 @@ export default {
                 this.fetchData();
             } catch (e) {
                 console.log(e);
+                alert(e.message ? e.message : JSON.stringify(e));
             }
+            this.txing = false;
         }
     },
 
