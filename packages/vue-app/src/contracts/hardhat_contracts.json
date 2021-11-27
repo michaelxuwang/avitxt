@@ -984,12 +984,57 @@
       "chainId": "31337",
       "contracts": {
         "Competition": {
-          "address": "0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f",
+          "address": "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
           "abi": [
             {
               "inputs": [],
               "stateMutability": "nonpayable",
               "type": "constructor"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": true,
+                  "internalType": "bytes32",
+                  "name": "id",
+                  "type": "bytes32"
+                }
+              ],
+              "name": "ChainlinkCancelled",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": true,
+                  "internalType": "bytes32",
+                  "name": "id",
+                  "type": "bytes32"
+                }
+              ],
+              "name": "ChainlinkFulfilled",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": true,
+                  "internalType": "bytes32",
+                  "name": "id",
+                  "type": "bytes32"
+                }
+              ],
+              "name": "ChainlinkRequested",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [],
+              "name": "ExternalDataFetched",
+              "type": "event"
             },
             {
               "anonymous": false,
@@ -1187,6 +1232,13 @@
             },
             {
               "inputs": [],
+              "name": "fetchExternalData",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [],
               "name": "finalizeDate",
               "outputs": [
                 {
@@ -1307,6 +1359,25 @@
                   "internalType": "uint256[]",
                   "name": "weights",
                   "type": "uint256[]"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "_applicant",
+                  "type": "address"
+                }
+              ],
+              "name": "getSubmissionExternalData",
+              "outputs": [
+                {
+                  "internalType": "string[]",
+                  "name": "",
+                  "type": "string[]"
                 }
               ],
               "stateMutability": "view",
@@ -1853,7 +1924,7 @@
           ]
         },
         "CompetitionFactory": {
-          "address": "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
+          "address": "0x67d269191c92Caf3cD7723F116c85e6E9bf55933",
           "abi": [
             {
               "inputs": [],

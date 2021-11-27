@@ -42,6 +42,12 @@
             <p>
               Submission File: <a :href="submissionData.file" target="_blank">{{submissionData.file}}</a>
             </p>
+            <div>
+              External Data
+              <div v-for="(item, index) in data.externalDataSources.labels" :key="index" class="ml-4">
+                {{item}}: {{(submissionData.externalData.length > index) ? submissionData.externalData[index] : "Not fetched yet"}}
+              </div>
+            </div>
           </v-col>
           <v-col cols="auto" class="text-center">
             <v-sheet width="100px" class="primary white--text rounded-lg" rounded>
@@ -51,7 +57,9 @@
           </v-col>
         </v-row>
 
-        {{ submissionData.info }}
+        <p class="mt-8">
+          {{ submissionData.info }}
+        </p>
 
         <v-divider class="mt-8 mb-8"></v-divider>
         <h3>Score Sheets</h3>
@@ -185,7 +193,9 @@ export default {
                 this.judgeScores = judgeScores;
               }
 
-              this.submissionData = await this.contract.methods.submissions(this.submissionId).call();
+              const newSubmissionData = await this.contract.methods.submissions(this.submissionId).call();
+              newSubmissionData.externalData = await this.contract.methods.getSubmissionExternalData(this.submissionId).call();
+              this.submissionData = newSubmissionData;
 
               const allScoreSheets = await this.contract.methods.getSubmissionScoreSheets(this.submissionId).call();
               const scoreSheets = [];

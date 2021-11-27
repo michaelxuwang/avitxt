@@ -11,6 +11,9 @@
             <p class="text-right">
               <v-btn color="primary" @click.prevent="$router.push('/view/' + address)">View</v-btn>
             </p>
+            <p class="text-right">
+              <v-btn color="secondary" @click.prevent="fetchExternalData">Fetch External Data</v-btn>
+            </p>
           </v-col>
         </v-row>
       </v-col>
@@ -604,6 +607,23 @@ export default {
             }
             this.txing = false;
         },
+
+        async fetchExternalData() {
+            this.txing = true;
+            try {
+                const receipt = await this.contract.methods
+                    .fetchExternalData()
+                    .send({
+                      from: this.$store.state.userAddress,
+                    });
+                console.log('receipt', receipt);
+                this.fetchData();
+            } catch (e) {
+                console.log(e);
+                alert(e.message ? e.message : JSON.stringify(e));
+            }
+            this.txing = false;
+        }
     },
 
     watch: {

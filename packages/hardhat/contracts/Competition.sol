@@ -4,9 +4,11 @@ pragma solidity >=0.8.0 <0.9.0;
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
+import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 
-contract Competition is Ownable {
+contract Competition is ChainlinkClient, Ownable {
 
+  using Chainlink for Chainlink.Request;
   using EnumerableSet for EnumerableSet.AddressSet;
 
   event InfoChanged();
@@ -41,6 +43,8 @@ contract Competition is Ownable {
   string[] public externalDataSourceLabels;
   string[] public externalDataSourceUrls;
 
+  event ExternalDataFetched();
+
   // funding
   uint256 public submissionFee;
 
@@ -58,6 +62,7 @@ contract Competition is Ownable {
     string uid;
     string info;
     string file;
+    string[] externalData;
     uint256 submissionDate;
     ScoreSheet[] allScoreSheets;
     address[] judges;
@@ -254,4 +259,28 @@ contract Competition is Ownable {
     Submission storage submission = submissions[_applicant];
     return submission.allScoreSheets;
   }
+
+  function getSubmissionExternalData(address _applicant) public view returns(string[] memory) {
+    Submission storage submission = submissions[_applicant];
+    return submission.externalData;
+  }
+
+  function fetchExternalData() public onlyOwner {
+    string memory uids = "";
+    for (uint256 i=0; i<applicants.length; i++) {
+      Submission storage submission = submissions[applicants[i]];
+      uids = string(abi.encodePacked(uids, submission.uid, ","));
+      submission.externalData = ["external data 1", "external data 2"];
+    }
+
+    emit ExternalDataFetched();
+  }
+
+  // function fetchExternalDataFrom(string calldata url, string calldata uids) internal pure returns (bytes32) {
+  //   return "1";
+  // }
+
+  // function recordExternalData(bytes32 requestId) internal {
+    
+  // }
 }
