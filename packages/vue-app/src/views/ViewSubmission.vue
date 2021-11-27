@@ -1,5 +1,15 @@
 <template>
   <div>
+    <div style="position:fixed">
+      <router-link :to="'/list-submissions/' + address" style="text-decoration: none;">
+        <v-btn
+          icon
+          class="ml-2 mt-4"
+        >
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
+      </router-link>
+    </div>
     <v-row class="text-left" justify="center" v-if="data && submissionData">
       <v-col class="mt-8" :cols="showJudge ? 8 : 10">
         <v-row>
@@ -11,9 +21,7 @@
           </v-col>
           <v-col class="text-right">
             <h3>
-              <router-link :to="'/view/' + address">
-                {{data.name}}
-              </router-link>
+              {{data.name}}
               <br>
               Submission
               <br>

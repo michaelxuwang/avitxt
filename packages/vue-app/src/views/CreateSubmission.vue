@@ -1,4 +1,15 @@
 <template>
+  <div>
+    <div style="position:fixed">
+      <router-link :to="'/view/' + address" style="text-decoration: none;">
+        <v-btn
+          icon
+          class="ml-2 mt-4"
+        >
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
+      </router-link>
+    </div>
     <v-row class="text-justify" justify="center" v-if="data">
       <v-col class="mt-8" cols="10">
         <h1 class="display-2 font-weight-bold mb-3">
@@ -52,6 +63,7 @@
         ></v-progress-circular>
       </v-col>
     </v-row>
+  </div>
 </template>
 
 <script>

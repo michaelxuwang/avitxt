@@ -5,8 +5,8 @@
       color="primary"
       dark
     >
-      <div class="d-flex align-center">
-        <router-link to="/">
+      <router-link to="/" style="color:white !important; text-decoration:none;">
+        <div class="d-flex align-center">
           <v-img
             alt="Vuetify Logo"
             class="shrink mr-2"
@@ -15,26 +15,18 @@
             transition="scale-transition"
             width="40"
           />
-        </router-link>
 
-        <h1>A</h1>ccountable
-        <h1>V</h1>erifiable
-        <h1>I</h1>mmutable
-        <h1>T</h1>ransparent
-        <h1>(X)</h1>
-        <h1>T</h1>racker
-      </div>
+          <h1>A</h1>ccountable
+          <h1>V</h1>erifiable
+          <h1>I</h1>mmutable
+          <h1>T</h1>ransparent
+          <h1>(X)</h1>
+          <h1>T</h1>racker
+        </div>
+      </router-link>
 
       <v-spacer></v-spacer>
 
-      <!-- <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn> -->
       <Account />
     </v-app-bar>
 
