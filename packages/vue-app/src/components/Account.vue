@@ -12,7 +12,7 @@
             </v-btn>
         </span>
         <span v-else>
-            <span class="address"> {{$store.state.userAddress}} </span>
+            <span class="address mr-2">{{$store.state.userAddress}}</span>
             <v-btn @click.prevent="logout" color="secondary" elevation="2">
                 Logout
             </v-btn>

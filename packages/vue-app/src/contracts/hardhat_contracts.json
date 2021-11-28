@@ -984,7 +984,7 @@
       "chainId": "31337",
       "contracts": {
         "Competition": {
-          "address": "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
+          "address": "0x99bbA657f2BbC93c02D617f8bA121cB8Fc104Acf",
           "abi": [
             {
               "inputs": [],
@@ -1059,6 +1059,25 @@
                 }
               ],
               "name": "OwnershipTransferred",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": true,
+                  "internalType": "bytes32",
+                  "name": "requestId",
+                  "type": "bytes32"
+                },
+                {
+                  "indexed": true,
+                  "internalType": "bytes",
+                  "name": "data",
+                  "type": "bytes"
+                }
+              ],
+              "name": "RequestFulfilled",
               "type": "event"
             },
             {
@@ -1200,6 +1219,25 @@
                   "type": "uint256"
                 }
               ],
+              "name": "externalDataSourceJobIds",
+              "outputs": [
+                {
+                  "internalType": "bytes32",
+                  "name": "",
+                  "type": "bytes32"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
               "name": "externalDataSourceLabels",
               "outputs": [
                 {
@@ -1248,6 +1286,24 @@
                 }
               ],
               "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "bytes32",
+                  "name": "requestId",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "bytes",
+                  "name": "bytesData",
+                  "type": "bytes"
+                }
+              ],
+              "name": "fulfillBytes",
+              "outputs": [],
+              "stateMutability": "nonpayable",
               "type": "function"
             },
             {
@@ -1920,11 +1976,30 @@
               "outputs": [],
               "stateMutability": "nonpayable",
               "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "name": "uidsToApplicants",
+              "outputs": [
+                {
+                  "internalType": "address",
+                  "name": "",
+                  "type": "address"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
             }
           ]
         },
         "CompetitionFactory": {
-          "address": "0x67d269191c92Caf3cD7723F116c85e6E9bf55933",
+          "address": "0x4826533B4897376654Bb4d4AD88B7faFD0C98528",
           "abi": [
             {
               "inputs": [],

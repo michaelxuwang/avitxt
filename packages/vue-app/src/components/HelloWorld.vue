@@ -1,12 +1,12 @@
 <template>
   <v-container>
     <v-row class="text-center mt-16">
-      <v-col cols="12" class="mt-16">
+      <v-col cols="12" class="mt-8">
         <v-img
           :src="require('../assets/logo.svg')"
-          class="my-3"
+          class=""
           contain
-          height="200"
+          height="300"
         />
       </v-col>
 

@@ -4,15 +4,16 @@
         <v-row justify="space-between">
           <v-col>
             <h1 class="display-2 font-weight-bold mb-3">
-          Edit Competition
+              Edit Competition
             </h1>
+            Contract: {{address}}
           </v-col>
           <v-col>
             <p class="text-right">
               <v-btn color="primary" @click.prevent="$router.push('/view/' + address)">View</v-btn>
             </p>
             <p class="text-right">
-              <v-btn color="secondary" @click.prevent="fetchExternalData">Fetch External Data</v-btn>
+              <v-btn color="secondary" @click.prevent="fetchExternalData" :disabled="txing">Fetch External Data</v-btn>
             </p>
           </v-col>
         </v-row>
@@ -31,11 +32,11 @@
           <v-tab>Funds</v-tab>
 
           <v-tab-item>
-            <v-text-field
+            <!-- <v-text-field
                 v-model="address"
                 label="Contract Address"
                 disabled
-            ></v-text-field>
+            ></v-text-field> -->
             
             <v-text-field
                 v-model="name"
@@ -405,6 +406,14 @@
               class="ml-2"
               v-show="txing"
             ></v-progress-circular>
+
+            <v-divider class="mt-8 mb-8"></v-divider>
+            <p>
+              Native Balance: {{ethBalance}}
+            </p>
+            <p>
+              LINK Balance: {{linkBalance}}
+            </p>
           </v-tab-item>
         </v-tabs>
       </v-col>
@@ -462,6 +471,8 @@ export default {
         applicantCanChoose: true,
 
         submissionFee: null,
+        ethBalance: 0,
+        linkBalance: 0,
 
         txing: false,
     }),
@@ -522,6 +533,8 @@ export default {
               // }
 
               this.submissionFee = this.data.submissionFee;
+              this.ethBalance = await this.$moralis.web3.eth.getBalance(this.address);
+              this.linkBalance = await this.contract.getLinkBalance();
 
             } catch (e) {
                 console.log(e);

@@ -45,7 +45,11 @@
             <div>
               External Data
               <div v-for="(item, index) in data.externalDataSources.labels" :key="index" class="ml-4">
-                {{item}}: {{(submissionData.externalData.length > index) ? submissionData.externalData[index] : "Not fetched yet"}}
+                {{item}}:
+                {{ (submissionData.externalData.length > index)
+                  ? ((submissionData.externalData[index] && submissionData.externalData[index].length)
+                    ? submissionData.externalData[index] : "Fetching...")
+                  : "Not fetched yet" }}
               </div>
             </div>
           </v-col>

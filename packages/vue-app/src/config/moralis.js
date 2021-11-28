@@ -22,6 +22,7 @@ Moralis.getContract = async (name, address) => {
 
     const contract = new Moralis.$web3.eth.Contract(contractInfo.abi, address);
     contract.fetchAllPlainData = fetchAllPlainData;
+    contract.getLinkBalance = getLinkBalance;
     return contract;
 }
 
@@ -43,6 +44,41 @@ async function fetchAllPlainData() {
     // console.log('fetchAllPlainData', methods, promises, results, data);
 
     return data;
+}
+
+async function getLinkBalance() {
+  // The minimum ABI to get ERC20 Token balance
+  let minABI = [
+    // balanceOf
+    {
+      "constant":true,
+      "inputs":[{"name":"_owner","type":"address"}],
+      "name":"balanceOf",
+      "outputs":[{"name":"balance","type":"uint256"}],
+      "type":"function"
+    },
+    // decimals
+    {
+      "constant":true,
+      "inputs":[],
+      "name":"decimals",
+      "outputs":[{"name":"","type":"uint8"}],
+      "type":"function"
+    }
+  ];
+  
+  try {
+    // Get ERC20 Token contract instance
+    let linkContract = new Moralis.$web3.eth.Contract(minABI, AppConfig.DEFAULT_NETWORK.linkTokenAddress);
+    
+    // Call balanceOf function
+    let balance = await linkContract.methods.balanceOf(this._address).call();
+    let decimals = await linkContract.methods.decimals().call();
+    return balance / 10**decimals;
+  } catch (e) {
+    console.log('LINK contract get blanace error');
+  }
+  return 0;
 }
 
 const MoralisConfig = Moralis;

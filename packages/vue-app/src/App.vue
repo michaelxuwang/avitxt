@@ -2,18 +2,18 @@
   <v-app>
     <v-app-bar
       app
-      color="primary"
+      color="blue darken-1"
       dark
     >
       <router-link to="/" style="color:white !important; text-decoration:none;">
         <div class="d-flex align-center">
           <v-img
-            alt="Vuetify Logo"
+            alt="AVIT(X)T Logo"
             class="shrink mr-2"
             contain
-            src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+            :src="require('./assets/logo.svg')"
             transition="scale-transition"
-            width="40"
+            width="48"
           />
 
           <h1>A</h1>ccountable

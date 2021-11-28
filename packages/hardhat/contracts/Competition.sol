@@ -5,11 +5,13 @@ import "hardhat/console.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
+import "./lib/Strings.sol";
 
 contract Competition is ChainlinkClient, Ownable {
 
   using Chainlink for Chainlink.Request;
   using EnumerableSet for EnumerableSet.AddressSet;
+  using Strings for string;
 
   event InfoChanged();
 
@@ -42,6 +44,7 @@ contract Competition is ChainlinkClient, Ownable {
 
   string[] public externalDataSourceLabels;
   string[] public externalDataSourceUrls;
+  bytes32[] public externalDataSourceJobIds;
 
   event ExternalDataFetched();
 
@@ -72,6 +75,7 @@ contract Competition is ChainlinkClient, Ownable {
   
   address[] public applicants;
   mapping(address => Submission) public submissions;
+  mapping(string => address) public uidsToApplicants; // uid to applicant
   event SubmissionAdded(address submissionId);
 
   event SubmissionScored(address submissionId, address judge);
@@ -80,6 +84,8 @@ contract Competition is ChainlinkClient, Ownable {
   EnumerableSet.AddressSet private judges;
 
   constructor() {
+    setChainlinkToken(0xa36085F69e2889c224210F603D836748e7dC0088);
+    setChainlinkOracle(0xc57B33452b4F7BB189bB5AfaE9cc4aBa1f7a4FD8);
   }
 
   function setBasicInfo(string memory _name, string memory _info, string memory _category) public onlyOwner {
@@ -182,6 +188,8 @@ contract Competition is ChainlinkClient, Ownable {
     submission.file = _file;
     submission.submissionDate = block.timestamp;
 
+    uidsToApplicants[_uid] = applicant;
+
     emit SubmissionAdded(applicant);
   }
 
@@ -266,21 +274,73 @@ contract Competition is ChainlinkClient, Ownable {
   }
 
   function fetchExternalData() public onlyOwner {
+    string[] memory clearExternalData = new string[](externalDataSourceUrls.length);
+
     string memory uids = "";
     for (uint256 i=0; i<applicants.length; i++) {
       Submission storage submission = submissions[applicants[i]];
       uids = string(abi.encodePacked(uids, submission.uid, ","));
-      submission.externalData = ["external data 1", "external data 2"];
+      submission.externalData = clearExternalData;
     }
 
-    emit ExternalDataFetched();
+    delete externalDataSourceJobIds;
+    for (uint256 i=0; i<externalDataSourceUrls.length; i++) {
+      // externalDataSourceJobIds.push(fetchExternalDataFrom(externalDataSourceUrls[i], uids));
+      fetchExternalDataFrom(externalDataSourceUrls[i], uids);
+      externalDataSourceJobIds.push(bytes32(i));
+    }
   }
 
-  // function fetchExternalDataFrom(string calldata url, string calldata uids) internal pure returns (bytes32) {
-  //   return "1";
-  // }
+  function fetchExternalDataFrom(string memory url, string memory uids) internal returns (bytes32) {
+    console.log(url);
+    console.log(uids);
+    string memory entireUrl = url.concat(uids);
 
-  // function recordExternalData(bytes32 requestId) internal {
-    
-  // }
+    bytes32 specId = "7a97ff8493ec406d90621b2531f9251a";
+    uint256 payment = 100000000000000000;
+    Chainlink.Request memory req = buildChainlinkRequest(specId, address(this), this.fulfillBytes.selector);
+    req.add("get", entireUrl);
+    req.add("path", "result");
+    requestOracleData(req, payment);
+    return req.id;
+    // emit ExternalDataFetched();
+  }
+
+  event RequestFulfilled(
+    bytes32 indexed requestId,
+    bytes indexed data
+  );
+  
+  function fulfillBytes(
+    bytes32 requestId,
+    bytes memory bytesData
+    // string memory data
+  )
+    public
+    recordChainlinkFulfillment(requestId)
+  {
+    emit RequestFulfilled(requestId, bytesData);
+    string memory data = string(bytesData);
+
+    console.log("data");
+    console.log(data);
+
+    uint256 dataSourceIndex = 0;
+    for (; dataSourceIndex<externalDataSourceJobIds.length; dataSourceIndex++) {
+      if (externalDataSourceJobIds[dataSourceIndex] == requestId)
+        break;
+    }
+    console.log(dataSourceIndex);
+
+    string[] memory ids = data.split(",");
+    for (uint256 i=0; i<ids.length; i++) {
+      console.log(ids[i]);
+      string[] memory applicantData = ids[i].split(":");
+      address applicant = uidsToApplicants[applicantData[0]];
+      console.log(applicantData[0], applicantData[1], applicant);
+
+      Submission storage submission = submissions[applicant];
+      submission.externalData[dataSourceIndex] = applicantData[1];
+    }
+  }
 }

@@ -39,11 +39,13 @@ export class AppConfig {
       color: "#7003DD",
       chainId: 42,
       // rpcUrl: `https://kovan.infura.io/v3/${this.INFURA_ID}`,
-      rpcUrl: "https://speedy-nodes-nyc.moralis.io/83fe2dc49820be3f0d48133d/eth/kovan",
+      // rpcUrl: "https://speedy-nodes-nyc.moralis.io/83fe2dc49820be3f0d48133d/eth/kovan",
+      rpcUrl: "https://eth-kovan.alchemyapi.io/v2/UQdl3PnJmWbRdP4ziX5d_7imyiyHB8W9",
       moralisServerUrl: "https://qurauvzjjmrz.usemoralis.com:2053/server",
       moralisAppId: "yY2GiYSr8ksX7BraE3gYYU12E4LeCnYQk9Ed0zG0",
       blockExplorer: "https://kovan.etherscan.io/",
       faucet: "https://gitter.im/kovan-testnet/faucet", // https://faucet.kovan.network/
+      linkTokenAddress: "0xa36085F69e2889c224210F603D836748e7dC0088",
     },
     rinkeby: {
       name: "rinkeby",
