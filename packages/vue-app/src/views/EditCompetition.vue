@@ -47,6 +47,8 @@
             <v-select
               v-model="category"
               :items="categories"
+              item-value="value"
+              item-text="value"
               label="Category"
             ></v-select>
 
