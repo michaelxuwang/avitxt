@@ -55,7 +55,7 @@ export default {
         name: '',
         nameRules: [
             value => !!value || 'Required.',
-            value => (value || '').length <= 40 || 'Max 40 characters',
+            // value => (value || '').length <= 200 || 'Max 400 characters',
         ],
 
         categories,

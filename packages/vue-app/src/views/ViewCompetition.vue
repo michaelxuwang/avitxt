@@ -72,7 +72,9 @@
         <h4>Judges</h4>
         <div v-if="data" class="mt-8">
           <div v-for="(item, index) in data.judges" :key="index" class="mt-2">
-            <v-icon>mdi-account-box</v-icon> {{ item }}
+            <router-link :to="'/view-judge/' + item" style="text-decoration:none;">
+                <v-icon>mdi-account-box</v-icon> {{ item }}
+            </router-link>
           </div>
         </div>
 

@@ -53,6 +53,16 @@ const routes = [
     name: 'ViewSubmission',
     component: () => import('../views/ViewSubmission.vue')
   },
+  {
+    path: '/view-judge/:address',
+    name: 'ViewJudge',
+    component: () => import('../views/ViewJudge.vue')
+  },
+  {
+    path: '/view-applicant/:address',
+    name: 'ViewApplicant',
+    component: () => import('../views/ViewApplicant.vue')
+  },
 ]
 
 const router = new VueRouter({

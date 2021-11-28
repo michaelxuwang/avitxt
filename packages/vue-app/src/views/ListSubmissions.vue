@@ -10,7 +10,7 @@
         </v-btn>
       </router-link>
     </div>
-    <v-row class="text-justify" justify="center" v-if="data">
+    <v-row class="text-left" justify="center" v-if="data">
       <v-col class="mt-8" cols="10">
         <h1 class="display-2 font-weight-bold mb-3">
           {{data.name}} Submissions

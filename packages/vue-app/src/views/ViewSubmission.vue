@@ -15,8 +15,10 @@
         <v-row>
           <v-col class="col-7">
             <h1 class="display-2 font-weight-bold mb-3">
-              <v-icon x-large>mdi-account-box-outline</v-icon>
+              <router-link :to="'/view-applicant/' + submissionId" style="text-decoration: none;">
+                <v-icon x-large>mdi-account-box-outline</v-icon>
               {{submissionData.name}}
+              </router-link>
             </h1>
             {{submissionId}}
           </v-col>

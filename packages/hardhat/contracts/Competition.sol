@@ -285,9 +285,9 @@ contract Competition is ChainlinkClient, Ownable {
 
     delete externalDataSourceJobIds;
     for (uint256 i=0; i<externalDataSourceUrls.length; i++) {
-      // externalDataSourceJobIds.push(fetchExternalDataFrom(externalDataSourceUrls[i], uids));
-      fetchExternalDataFrom(externalDataSourceUrls[i], uids);
-      externalDataSourceJobIds.push(bytes32(i));
+      externalDataSourceJobIds.push(fetchExternalDataFrom(externalDataSourceUrls[i], uids));
+      // fetchExternalDataFrom(externalDataSourceUrls[i], uids);
+      // externalDataSourceJobIds.push(bytes32(i));
     }
   }
 

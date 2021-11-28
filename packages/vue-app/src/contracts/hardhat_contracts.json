@@ -5,12 +5,57 @@
       "chainId": "42",
       "contracts": {
         "Competition": {
-          "address": "0x568Fe940F2299c613A647E7dC3F64D4a3A747bA3",
+          "address": "0x9586dB1923D2818091b2bED69994dc1759769257",
           "abi": [
             {
               "inputs": [],
               "stateMutability": "nonpayable",
               "type": "constructor"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": true,
+                  "internalType": "bytes32",
+                  "name": "id",
+                  "type": "bytes32"
+                }
+              ],
+              "name": "ChainlinkCancelled",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": true,
+                  "internalType": "bytes32",
+                  "name": "id",
+                  "type": "bytes32"
+                }
+              ],
+              "name": "ChainlinkFulfilled",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": true,
+                  "internalType": "bytes32",
+                  "name": "id",
+                  "type": "bytes32"
+                }
+              ],
+              "name": "ChainlinkRequested",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [],
+              "name": "ExternalDataFetched",
+              "type": "event"
             },
             {
               "anonymous": false,
@@ -35,6 +80,25 @@
                 }
               ],
               "name": "OwnershipTransferred",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": true,
+                  "internalType": "bytes32",
+                  "name": "requestId",
+                  "type": "bytes32"
+                },
+                {
+                  "indexed": true,
+                  "internalType": "bytes",
+                  "name": "data",
+                  "type": "bytes"
+                }
+              ],
+              "name": "RequestFulfilled",
               "type": "event"
             },
             {
@@ -176,6 +240,25 @@
                   "type": "uint256"
                 }
               ],
+              "name": "externalDataSourceJobIds",
+              "outputs": [
+                {
+                  "internalType": "bytes32",
+                  "name": "",
+                  "type": "bytes32"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
               "name": "externalDataSourceLabels",
               "outputs": [
                 {
@@ -208,6 +291,13 @@
             },
             {
               "inputs": [],
+              "name": "fetchExternalData",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [],
               "name": "finalizeDate",
               "outputs": [
                 {
@@ -217,6 +307,24 @@
                 }
               ],
               "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "bytes32",
+                  "name": "requestId",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "bytes",
+                  "name": "bytesData",
+                  "type": "bytes"
+                }
+              ],
+              "name": "fulfillBytes",
+              "outputs": [],
+              "stateMutability": "nonpayable",
               "type": "function"
             },
             {
@@ -328,6 +436,25 @@
                   "internalType": "uint256[]",
                   "name": "weights",
                   "type": "uint256[]"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "_applicant",
+                  "type": "address"
+                }
+              ],
+              "name": "getSubmissionExternalData",
+              "outputs": [
+                {
+                  "internalType": "string[]",
+                  "name": "",
+                  "type": "string[]"
                 }
               ],
               "stateMutability": "view",
@@ -870,11 +997,30 @@
               "outputs": [],
               "stateMutability": "nonpayable",
               "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "name": "uidsToApplicants",
+              "outputs": [
+                {
+                  "internalType": "address",
+                  "name": "",
+                  "type": "address"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
             }
           ]
         },
         "CompetitionFactory": {
-          "address": "0x48D4352187A2AEaC15777d351Cac68192DeE30F6",
+          "address": "0xDba517b40043831866a9AA1e1b06F7D65816eeDB",
           "abi": [
             {
               "inputs": [],
