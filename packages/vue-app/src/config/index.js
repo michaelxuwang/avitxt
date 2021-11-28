@@ -69,8 +69,8 @@ export class AppConfig {
       rpcUrl: "https://speedy-nodes-nyc.moralis.io/83fe2dc49820be3f0d48133d/bsc/testnet",
       faucet: "https://testnet.binance.org/faucet-smart",
       blockExplorer: "https://mumbai-explorer.matic.today/",
-      moralisServerUrl: "https://pubuxbhouojn.usemoralis.com:2053/server",
-      moralisAppId: "Dga9yy9tDzJdFnuYOtgHZuBOCVLQnQrygmwWzlnQ",
+      moralisServerUrl: "https://dwwce8ek9e95.usemoralis.com:2053/server",
+      moralisAppId: "GOnwQaHuGpgk82e7wj1Ez34P9LFlTlejsEAiiLHP",
       linkTokenAddress: "0x84b9b910527ad5c03a9ca831909e21e236ea7b06",
     },
     rinkeby: {
