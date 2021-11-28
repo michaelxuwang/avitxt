@@ -26,7 +26,7 @@ const { isAddress, getAddress, formatUnits, parseUnits } = utils;
 //
 // Select the network you want to deploy to here:
 //
-const defaultNetwork = "polytest";
+const defaultNetwork = "bsctest";
 
 const mainnetGwei = 21;
 
@@ -174,6 +174,16 @@ module.exports = {
         mnemonic: mnemonic(),
       },
     },
+
+    bsctest: {
+      url: "https://data-seed-prebsc-1-s1.binance.org:8545",
+      chainId: 97,
+      gasPrice: 20000000000,
+      accounts: {
+        mnemonic: mnemonic(),
+      },
+    },
+
     rinkebyArbitrum: {
       url: "https://rinkeby.arbitrum.io/rpc",
       gasPrice: 0,

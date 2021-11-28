@@ -4,7 +4,7 @@ export class AppConfig {
   //   static MORALIS_APPID = "tkuc3FgHnBgyA28ty1VzZwo7ixIkTzzCVLbZeRAe";
   //   static MORALIS_SERVER_URL = "https://rfdhyqlivk4x.usemoralis.com:2053/server";
 
-  static DEFAULT_NETWORK_NAME = "polytest";
+  static DEFAULT_NETWORK_NAME = "bsctest";
 
   // MY INFURA_ID, SWAP IN YOURS FROM https://infura.io/dashboard/ethereum
   static INFURA_ID = "7b0e75d38d424750b92791477924d133";
@@ -59,6 +59,19 @@ export class AppConfig {
       moralisServerUrl: "https://pubuxbhouojn.usemoralis.com:2053/server",
       moralisAppId: "Dga9yy9tDzJdFnuYOtgHZuBOCVLQnQrygmwWzlnQ",
       linkTokenAddress: "0x326C977E6efc84E512bB9C30f76E30c160eD06FB",
+    },
+    bsctest: {
+      name: "bsctest",
+      color: "#92D9FA",
+      chainId: 97,
+      price: 1,
+      gasPrice: 20000000000,
+      rpcUrl: "https://speedy-nodes-nyc.moralis.io/83fe2dc49820be3f0d48133d/bsc/testnet",
+      faucet: "https://testnet.binance.org/faucet-smart",
+      blockExplorer: "https://mumbai-explorer.matic.today/",
+      moralisServerUrl: "https://pubuxbhouojn.usemoralis.com:2053/server",
+      moralisAppId: "Dga9yy9tDzJdFnuYOtgHZuBOCVLQnQrygmwWzlnQ",
+      linkTokenAddress: "0x84b9b910527ad5c03a9ca831909e21e236ea7b06",
     },
     rinkeby: {
       name: "rinkeby",
