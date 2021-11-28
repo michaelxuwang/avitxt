@@ -4,7 +4,7 @@ export class AppConfig {
   //   static MORALIS_APPID = "tkuc3FgHnBgyA28ty1VzZwo7ixIkTzzCVLbZeRAe";
   //   static MORALIS_SERVER_URL = "https://rfdhyqlivk4x.usemoralis.com:2053/server";
 
-  static DEFAULT_NETWORK_NAME = "kovan";
+  static DEFAULT_NETWORK_NAME = "polytest";
 
   // MY INFURA_ID, SWAP IN YOURS FROM https://infura.io/dashboard/ethereum
   static INFURA_ID = "7b0e75d38d424750b92791477924d133";
@@ -46,6 +46,19 @@ export class AppConfig {
       blockExplorer: "https://kovan.etherscan.io/",
       faucet: "https://gitter.im/kovan-testnet/faucet", // https://faucet.kovan.network/
       linkTokenAddress: "0xa36085F69e2889c224210F603D836748e7dC0088",
+    },
+    polytest: {
+      name: "polytest",
+      color: "#92D9FA",
+      chainId: 80001,
+      price: 1,
+      gasPrice: 1000000000,
+      rpcUrl: "https://speedy-nodes-nyc.moralis.io/83fe2dc49820be3f0d48133d/polygon/mumbai",
+      faucet: "https://faucet.matic.network/",
+      blockExplorer: "https://mumbai-explorer.matic.today/",
+      moralisServerUrl: "https://pubuxbhouojn.usemoralis.com:2053/server",
+      moralisAppId: "Dga9yy9tDzJdFnuYOtgHZuBOCVLQnQrygmwWzlnQ",
+      linkTokenAddress: "0x326C977E6efc84E512bB9C30f76E30c160eD06FB",
     },
     rinkeby: {
       name: "rinkeby",
@@ -90,16 +103,6 @@ export class AppConfig {
       rpcUrl: "https://rpc-mainnet.maticvigil.com",
       faucet: "https://faucet.matic.network/",
       blockExplorer: "https://explorer-mainnet.maticvigil.com//",
-    },
-    mumbai: {
-      name: "mumbai",
-      color: "#92D9FA",
-      chainId: 80001,
-      price: 1,
-      gasPrice: 1000000000,
-      rpcUrl: "https://rpc-mumbai.maticvigil.com",
-      faucet: "https://faucet.matic.network/",
-      blockExplorer: "https://mumbai-explorer.matic.today/",
     },
     localArbitrum: {
       name: "localArbitrum",

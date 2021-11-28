@@ -62,17 +62,17 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
 
   // Verify your contracts with Etherscan
   // You don't want to verify on localhost
-  if (chainId !== localChainId) {
-    await run("verify:verify", {
-      address: CompetitionFactory.address,
-      contract: "contracts/CompetitionFactory.sol:CompetitionFactory",
-      contractArguments: [],
-    });
-    await run("verify:verify", {
-      address: Competition.address,
-      contract: "contracts/Competition.sol:Competition",
-      contractArguments: [],
-    });
-  }
+  // if (chainId !== localChainId) {
+  //   await run("verify:verify", {
+  //     address: CompetitionFactory.address,
+  //     contract: "contracts/CompetitionFactory.sol:CompetitionFactory",
+  //     contractArguments: [],
+  //   });
+  //   await run("verify:verify", {
+  //     address: Competition.address,
+  //     contract: "contracts/Competition.sol:Competition",
+  //     contractArguments: [],
+  //   });
+  // }
 };
 module.exports.tags = ["CompetitionFactory", "Competition"];
