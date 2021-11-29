@@ -4,7 +4,7 @@ export class AppConfig {
   //   static MORALIS_APPID = "tkuc3FgHnBgyA28ty1VzZwo7ixIkTzzCVLbZeRAe";
   //   static MORALIS_SERVER_URL = "https://rfdhyqlivk4x.usemoralis.com:2053/server";
 
-  static DEFAULT_NETWORK_NAME = "bsctest";
+  static DEFAULT_NETWORK_NAME = "kovan";
 
   // MY INFURA_ID, SWAP IN YOURS FROM https://infura.io/dashboard/ethereum
   static INFURA_ID = "7b0e75d38d424750b92791477924d133";
